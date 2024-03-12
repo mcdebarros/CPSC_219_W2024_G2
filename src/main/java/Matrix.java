@@ -82,7 +82,6 @@ public class Matrix {
     }
 
     public int[] size() {
-
         return dim;
     }
 
@@ -90,5 +89,12 @@ public class Matrix {
         return square;
     }
 
+    @Override
+    public String toString() {
+        return Arrays.toString(matrix);
+    }
 
+    public Matrix inverse() {
+
+    }
 }
