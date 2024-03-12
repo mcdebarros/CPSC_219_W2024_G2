@@ -5,7 +5,7 @@ import static java.lang.StringTemplate.STR;
 
 public class Regression {
 
-    public static void main(String[] args) throws IllegalArgumentException {
+    public static void main(String[] args) throws IllegalArgumentException, FileNotFoundException {
 
         int order;
         Scanner input = new Scanner(System.in);

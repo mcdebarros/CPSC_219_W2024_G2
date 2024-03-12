@@ -10,7 +10,7 @@ public class Matrix {
     private final int m;
     private final int n;
     private final boolean square;
-    private String type;
+    private final String type;
     private final boolean invertible;
     private final Double det;
 
@@ -47,57 +47,12 @@ public class Matrix {
         type = type();
     }
 
-    public Matrix(String data) throws ExceptionInInitializerError {
+    public Matrix(String data) throws RuntimeException, FileNotFoundException {
 
-        ArrayList<String> dataLines = new ArrayList<>(); //ArrayList of lines read from the data file
-        File dataFile = new File(data);
-        if (dataFile.exists() && dataFile.canRead() && dataFile.isFile()) {
-            try {
-                FileReader readData = new FileReader(dataFile);
-                BufferedReader buffedData = new BufferedReader(readData);
-                String dataLine = buffedData.readLine();
-                int i = 0;
-                while (dataLine != null) {
-                    dataLines.add(i,dataLine);
-                    dataLine = buffedData.readLine();
-                    i++;
-                }
-            } catch (FileNotFoundException e) {
-                System.err.println("Whoops! Can't find the file. Check and try again.");
-                System.exit(3);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            System.err.println("Cannot read file!");
-            System.exit(4);
-        }
-        String[] lineContent = (dataLines.getFirst()).split("\t", 0);
-        matrix = new Double[dataLines.size()][lineContent.length];
+        matrix = MatReader.getData(data);
         m = matrix.length;
         n = matrix[0].length;
-        if ((m == 1) && (n == 1)) {
-            throw new ExceptionInInitializerError("One by one matrix is a scalar quantity.");
-        }
         dim = new int[]{m,n};
-        for (int i = 0; i < dataLines.size(); i++) {
-            if (!(dataLines.get(i)).isEmpty()) {
-                try {
-                    lineContent = (dataLines.get(i)).split("\t", 0);
-                    if (lineContent.length < matrix[0].length) {
-                        System.err.println(STR."Inconsistent dimensions at line \{i + 1}, check n dimension.");
-                    }
-                    matrix[i][0] = Double.parseDouble(lineContent[0]);
-                    matrix[i][1] = Double.parseDouble(lineContent[1]);
-                } catch (NumberFormatException e) { //Terminates the program if the line contains data not in decimal format
-                    System.err.println(STR."Improperly formatted data at line \{i + 1}, check data and try again!");
-                    System.exit(6);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.err.println(STR."Inconsistent dimensions at line \{i + 1}, check n dimension.");
-                    System.exit(0);
-                }
-            }
-        }
         square = (m == n);
         if (square) {
             det = determinant(matrix);
@@ -258,19 +213,6 @@ public class Matrix {
             type = "Square";
         }
         return type;
-        }
-    }
-
-    private boolean containsHeaders(String line) {
-        String[] parts = line.split("\t"); // Create a 1D array by splitting the line at the tab
-        for (String part : parts) {
-            try {
-                Double.parseDouble(part); //Attempt to parse each entry as a double
-                return false; //Return false if parsing succeeds; this line is not a header
-            } catch (NumberFormatException e) {
-                //If parsing fails, it's likely that headers were encountered
-            }
-        }
-        return true; //Data likely contains headers if not all parts were parsed as doubles
     }
 }
+
