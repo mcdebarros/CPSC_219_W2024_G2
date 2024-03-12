@@ -27,6 +27,15 @@ public class Matrix {
 
     }
 
+    public Matrix(Double[][] aInv) throws ExceptionInInitializerError {
+
+        matrix = new Double[aInv[0].length][aInv.length];
+        m = aInv.length;
+        n = aInv[0].length;
+        dim = new int[]{m, n};
+        square = (m == n);
+    }
+
     public Matrix(String data) throws ExceptionInInitializerError{
 
         ArrayList<String> dataLines = new ArrayList<>(); //ArrayList of lines read from the data file
@@ -94,7 +103,52 @@ public class Matrix {
         return Arrays.toString(matrix);
     }
 
-    public Matrix inverse() {
+    public Matrix inverse(Double[][] a) {
 
+        int n = a.length; //Establish dimensions of a
+        Double[][] aInv = new Double[n][n]; //Initialize inverted matrix
+        for (int i = 0; i < n; i++) { //Initialize the inverted matrix as the identity matrix, with 1s along the main diagonal and zeros elsewhere
+            for (int j = 0; j < n; j++) {
+                if (i == j) {
+                    aInv[i][j] = 1.0; //On-diagonal entries
+                } else {
+                    aInv[i][j] = 0.0; //Off-diagonal entries
+                }
+            }
+        }
+        for (int i = 0; i < n; i++) { //Perform Gaussian elimination w/ partial pivoting
+            int maxRow = i;
+            for (int j = i + 1; j < n; j++) { //Find the pivot row by locating the largest absolute value in some column
+                if (Math.abs(a[j][i]) > Math.abs(a[maxRow][i])) {
+                    maxRow = j;
+                }
+            }
+            swapRows(a, i, maxRow); //Swap current row with pivot row
+            swapRows(aInv, i, maxRow); //Swap current row with pivot row
+            Double pivot = a[i][i]; //Scale the row such that the diagonal element is 1
+            if (pivot == 0.0) { //Terminate the program if the matrix is singular
+                throw new IllegalArgumentException("Matrix is singular");
+            }
+            for (int j = 0; j < n; j++) {
+                a[i][j] /= pivot; //Scale this row in the input matrix
+                aInv[i][j] /= pivot; //Update the inverted matrix
+            }
+            for (int k = 0; k < n; k++) { //Eliminate below the pivot element
+                if (k != i) {
+                    Double factor = a[k][i];
+                    for (int j = 0; j < n; j++) {
+                        a[k][j] -= factor * a[i][j]; //Eliminate in the input matrix
+                        aInv[k][j] -= factor * aInv[i][j]; //Update the inverted matrix
+                    }
+                }
+            }
+        }
+        return aInv;
+    }
+
+    private static void swapRows(Double[][] a, int i, int j) {
+        Double[] temp = a[i]; //Temporarily store a[i]
+        a[i] = a[j]; //Assign a[j] to a[i]
+        a[j] = temp; //Assign a[i] to a[j]
     }
 }
