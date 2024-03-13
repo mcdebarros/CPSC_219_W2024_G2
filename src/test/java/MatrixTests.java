@@ -21,6 +21,7 @@ public class MatrixTests {
         assertEquals(expected,actual,STR."Failed to retrieve proper entry. Expected \{expected}, received \{actual}");
     }
 
+
     @Test
     void test_setEntry() throws FileNotFoundException {
         String dataFile = "src/main/java/data.txt";
