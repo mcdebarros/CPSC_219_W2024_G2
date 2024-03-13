@@ -10,33 +10,32 @@ public class MatReader {
         Double[][] dataMatrix;
         boolean hasHeader = containsHeaders(dataLines.getFirst());
         if (!hasHeader) {
-            dataMatrix = new Double[dataLines.size()][2];
+            String[] n = (dataLines.getFirst()).split("\t", 0);
+            dataMatrix = new Double[dataLines.size()][n.length];
             for (int i = 0; i < dataLines.size(); i++) {
                 if (!(dataLines.get(i)).isEmpty()) {
                     try {
                         String[] lineContent = (dataLines.get(i)).split("\t", 0);
-                        dataMatrix[i][0] = Double.parseDouble(lineContent[0]);
-                        dataMatrix[i][1] = Double.parseDouble(lineContent[1]);
+                        for (int j = 0; j < n.length; j++) {
+                            dataMatrix[i][j] = Double.parseDouble(lineContent[j]);
+                        }
                     } catch (NumberFormatException e) {
                         throw new NumberFormatException(STR."Incorrect data format at line \{i + 1}. Check data");
                     }
                 }
             }
         } else {
-            dataMatrix = new Double[dataLines.size() - 1][2];
+            String[] n = (dataLines.get(1)).split("\t", 0);
+            dataMatrix = new Double[dataLines.size() - 1][n.length];
             for (int i = 1; i < dataLines.size(); i++) {
                 if (!(dataLines.get(i)).isEmpty()) {
                     try {
                         String[] lineContent = (dataLines.get(i)).split("\t", 0);
-                        dataMatrix[i - 1][0] = Double.parseDouble(lineContent[0]);
-                        dataMatrix[i - 1][1] = Double.parseDouble(lineContent[1]);
-                        if (dataMatrix[i - 1].length != 2) {
-                            System.err.println(STR."Too many data points on line \{i + 1}, check data and try again!");
-                            System.exit(12);
+                        for (int j = 0; j < n.length; j++) {
+                            dataMatrix[i - 1][j] = Double.parseDouble(lineContent[j]);
                         }
                     } catch (NumberFormatException e) {
-                        System.err.println(STR."Something's fishy at line \{i + 1}, check data and try again!");
-                        System.exit(6);
+                        throw new NumberFormatException(STR."Incorrect data format at line \{i + 1}. Check data");
                     }
                 }
             }
@@ -44,7 +43,7 @@ public class MatReader {
         return dataMatrix;
     }
 
-    private static ArrayList<String> getStrings(String fileName) throws FileNotFoundException {
+    public static ArrayList<String> getStrings(String fileName) throws FileNotFoundException {
         ArrayList<String> dataLines = new ArrayList<>();
         File dataFile = new File(fileName);
         if (dataFile.exists() && dataFile.canRead() && dataFile.isFile()) {
@@ -69,7 +68,7 @@ public class MatReader {
         return dataLines;
     }
 
-    private static boolean containsHeaders(String line) {
+    public static boolean containsHeaders(String line) {
         String[] parts = line.split("\t"); // Create a 1D array by splitting the line at the tab
         for (String part : parts) {
             try {

@@ -6,7 +6,7 @@ import static java.lang.StringTemplate.STR;
 public class Matrix {
 
     private final int[] dim;
-    private final Double[][] matrix;
+    private Double[][] matrix;
     private final int m;
     private final int n;
     private final boolean square;
@@ -83,12 +83,20 @@ public class Matrix {
         return type;
     }
 
+    public Double getEntry(int i, int j) {
+        return matrix[i][j];
+    }
+
+    public void setEntry(int i, int j, Double entry) {
+        matrix[i][j] = entry;
+    }
+
     @Override
     public String toString() {
         return Arrays.toString(matrix);
     }
 
-    public Matrix inverse(Matrix a) throws IllegalArgumentException {
+    public static Matrix inverse(Matrix a) throws IllegalArgumentException {
 
         if (!a.invertible) {
             throw new IllegalArgumentException("Matrix must be square with nonzero determinant to be invertible!");
@@ -135,13 +143,13 @@ public class Matrix {
         return new Matrix(aInv);
     }
 
-    private void swapRows(Double[][] a, int i, int j) {
+    private static void swapRows(Double[][] a, int i, int j) {
         Double[] temp = a[i]; //Temporarily store a[i]
         a[i] = a[j]; //Assign a[j] to a[i]
         a[j] = temp; //Assign a[i] to a[j]
     }
 
-    public Matrix transpose(Matrix a) {
+    public static Matrix transpose(Matrix a) {
         Double [][] transposeDub = new Double[a.n][a.m];
         for (int i = 0; i < a.m; i++) {
             for (int j = 0; j < a.n; j++) {
@@ -179,7 +187,7 @@ public class Matrix {
         return det;
     }
 
-    public Matrix matMult(Matrix a, Matrix b) throws IllegalArgumentException {
+    public static Matrix matMult(Matrix a, Matrix b) throws IllegalArgumentException {
 
         Double[][] c = new Double[a.m][b.n]; //Initialize output matrix
         if (a.n != b.m) { //Check that passed matrices have compatible dimensions
