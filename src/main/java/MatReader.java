@@ -43,6 +43,7 @@ public class MatReader {
         return dataMatrix;
     }
 
+
     public static ArrayList<String> getStrings(String fileName) throws FileNotFoundException {
         ArrayList<String> dataLines = new ArrayList<>();
         File dataFile = new File(fileName);
