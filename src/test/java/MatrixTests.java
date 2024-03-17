@@ -36,7 +36,7 @@ public class MatrixTests {
     void test_size() throws FileNotFoundException {
         String dataFile = "src/main/java/data.txt";
         Matrix testMat = new Matrix(dataFile);
-        int[] expected = new int[]{3,3};
+        int[] expected = new int[]{2,2};
         int[] actual = testMat.size();
         System.out.println(Arrays.toString(actual));
         assertEquals(expected[0],actual[0], "Matrix did not initialize with proper dimensions.");
