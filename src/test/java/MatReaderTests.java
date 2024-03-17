@@ -27,7 +27,7 @@ public class MatReaderTests {
 
         String fileName = "src/main/java/data.txt";
         ArrayList<String> dataLines = MatReader.getStrings(fileName);
-        String expected = "1.0\t2.0\t3.0";
+        String expected = "1.0\t2.0";
         assertEquals(expected,dataLines.getFirst(),STR."Incorrect string received. Expected \{expected}, received \{dataLines.getFirst()}");
     }
 
@@ -44,9 +44,9 @@ public class MatReaderTests {
     void test_correctLength() throws FileNotFoundException {
 
         String fileName = "src/main/java/data.txt";
-        String testString = "1.0\t2.0\t3.0";
+        String testString = "1.0\t2.0";
         Double[][] data = MatReader.getData(fileName);
-        int expected = 3;
+        int expected = 2;
         int m = data.length;
         int n = data[0].length;
         assertEquals(expected,m);

@@ -6,7 +6,7 @@ import static java.lang.StringTemplate.STR;
 public class Matrix {
 
     private final int[] dim;
-    private Double[][] matrix;
+    private final Double[][] matrix;
     private final int m;
     private final int n;
     private final boolean square;
