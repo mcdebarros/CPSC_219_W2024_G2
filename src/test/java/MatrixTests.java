@@ -38,7 +38,6 @@ public class MatrixTests {
         Matrix testMat = new Matrix(dataFile);
         int[] expected = new int[]{3,3};
         int[] actual = testMat.size();
-        System.out.println(Arrays.toString(actual));
         assertEquals(expected[0],actual[0], "Matrix did not initialize with proper dimensions.");
         assertEquals(expected[1],actual[1], "Matrix did not initialize with proper dimensions.");
     }
@@ -50,5 +49,23 @@ public class MatrixTests {
         Matrix testMat = new Matrix(dataFile);
         boolean square = testMat.isSquare();
         assertTrue(square,"Nonsquare matrix indicated by test result!");
+    }
+
+    @Test
+    void test_showMat() throws FileNotFoundException {
+
+        String dataFile = "src/main/java/data.txt";
+        Matrix testMat = new Matrix(dataFile);
+        testMat.showMat();
+    }
+
+    @Test
+    void test_equals() throws FileNotFoundException {
+
+        Matrix a = new Matrix("src/main/java/data.txt");
+        Matrix b = new Matrix("src/main/java/data.txt");
+        boolean equal = a.equals(b);
+        assertTrue(equal,"Returned false for identical matrices! Expected true.");
+
     }
 }

@@ -3,10 +3,14 @@ import java.io.*;
 
 import static java.lang.StringTemplate.STR;
 
+//TODO
+// Abstract classing for matrix subtypes?
+// Inheritance?
+
 public class Matrix {
 
     private final int[] dim;
-    private Double[][] matrix;
+    private final Double[][] matrix;
     private final int m;
     private final int n;
     private final boolean square;
@@ -221,6 +225,51 @@ public class Matrix {
             type = "Square";
         }
         return type;
+    }
+
+    public Double[] getRow(int row) {
+        try {
+            return matrix[row - 1];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new ArrayIndexOutOfBoundsException(STR."Row index out of bounds! Indices range from 1 to \{m}");
+        }
+    }
+
+    //public Double[] gerCol(int col) {
+
+        //Double[] column = new Column
+        //try {
+           // return matrix[0][col];
+      //  }
+        //return new Double[0];
+    //}
+
+    public void showMat() {
+
+        for (Double[] row : matrix) {
+            System.out.println(Arrays.toString(row));
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
+            return true;
+        }
+        if (obj != null) {
+            if (getClass() != obj.getClass()) {
+                Matrix other = (Matrix) obj;
+                for (int i = 0; i < this.m; i++) {
+                    for (int j = 0; j < this.n; j++) {
+                        if ((double) this.matrix[m][n] != (double) other.matrix[m][n]) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 }
 
