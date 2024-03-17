@@ -93,4 +93,12 @@ public class MatrixTests {
         Matrix Matrix = new Matrix(4, 3);
         assertEquals("System", Matrix.getType());
     }
+
+    @Test
+    void test_typeSquare() {
+        Matrix Matrix = new Matrix(3, 3);
+        assertEquals("System", Matrix.getType());
+    }
+    
+
 }
