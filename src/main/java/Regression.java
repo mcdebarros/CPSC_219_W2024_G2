@@ -66,6 +66,7 @@ public class Regression {
         if (write.equals("Y")) {
             MatWriter.writeMat(model);
         }
+
         System.out.println("Modelling complete!");
     }
 
