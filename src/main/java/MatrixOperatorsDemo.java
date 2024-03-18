@@ -11,7 +11,7 @@ public class MatrixOperatorsDemo {
 
         System.out.println("Transposed Matrix");
         Matrix transposedData;
-        transposedData = new Matrix(args[0]);
+        transposedData = Matrix.transpose(data);
         transposedData.showMat();
 
     }
