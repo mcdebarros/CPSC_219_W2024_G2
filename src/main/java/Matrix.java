@@ -51,6 +51,7 @@ public class Matrix {
         type = type();
     }
 
+
     public Matrix(String data) throws RuntimeException, FileNotFoundException {
 
         matrix = MatReader.getData(data);
