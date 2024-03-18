@@ -1,7 +1,7 @@
 import java.io.*;
 
 public class MatrixOperatorsDemo {
-    public static void main(String args[]) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException {
 
         System.out.print("""
                 This demo is here to show the matrix operations in action!
@@ -19,11 +19,13 @@ public class MatrixOperatorsDemo {
 
         System.out.println("Inverse Matrix");
         Matrix invertedData = Matrix.inverse(data);
+        data.showMat();
         invertedData.showMat();
         System.out.println();
 
         System.out.println("Multiplied Matrix of Original Matrix and Transposed Matrix");
-        Matrix multipliedMatrix = Matrix.matMult(data, transposedData);
+        Matrix multipliedMatrix = Matrix.matMult(data, invertedData);
+
         multipliedMatrix.showMat();
 
     }
