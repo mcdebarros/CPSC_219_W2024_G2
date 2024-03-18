@@ -16,8 +16,8 @@ public class MatrixTests {
     void test_getEntry() throws FileNotFoundException {
         String dataFile = "src/main/java/data.txt";
         Matrix testMat = new Matrix(dataFile);
-        Double expected = 1.0;
-        Double actual = testMat.getEntry(0,0);
+        double expected = 1.0;
+        double actual = testMat.getEntry(0,0);
         assertEquals(expected,actual,STR."Failed to retrieve proper entry. Expected \{expected}, received \{actual}");
     }
 
@@ -27,8 +27,8 @@ public class MatrixTests {
         String dataFile = "src/main/java/data.txt";
         Matrix testMat = new Matrix(dataFile);
         testMat.setEntry(0,0,69.0);
-        Double expected = 69.0;
-        Double actual = testMat.getEntry(0,0);
+        double expected = 69.0;
+        double actual = testMat.getEntry(0,0);
         assertEquals(expected,actual,STR."Failed to set entry. Expected \{expected}, received \{actual}");
     }
 
@@ -36,7 +36,7 @@ public class MatrixTests {
     void test_size() throws FileNotFoundException {
         String dataFile = "src/main/java/data.txt";
         Matrix testMat = new Matrix(dataFile);
-        int[] expected = new int[]{2,2};
+        int[] expected = new int[]{3,3};
         int[] actual = testMat.size();
         System.out.println(Arrays.toString(actual));
         assertEquals(expected[0],actual[0], "Matrix did not initialize with proper dimensions.");
@@ -74,8 +74,8 @@ public class MatrixTests {
     void test_det_2by2() throws FileNotFoundException {
 
         Matrix testMat= new Matrix("src/main/java/data.txt");
-        Double determinant = testMat.getDet();
-        Double expected = -3.0;
+        double determinant = testMat.getDet();
+        double expected = 0;
         assertEquals(expected,determinant,STR."Incorrectly calculated determinant. Expected -3.0, received \{determinant}.");
     }
 
@@ -114,5 +114,10 @@ public class MatrixTests {
         assertEquals(expected, Matrix.getType());
     }
 
+    @Test
+    void test_transpose() throws FileNotFoundException {
 
+        Matrix testMat = new Matrix("src/main/java/data.txt");
+        Matrix testTrans = Matrix.transpose(testMat);
+    }
 }

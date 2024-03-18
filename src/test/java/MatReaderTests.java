@@ -27,7 +27,7 @@ public class MatReaderTests {
 
         String fileName = "src/main/java/data.txt";
         ArrayList<String> dataLines = MatReader.getStrings(fileName);
-        String expected = "1.0\t2.0";
+        String expected = "1.0\t2.0\t3.0";
         assertEquals(expected,dataLines.getFirst(),STR."Incorrect string received. Expected \{expected}, received \{dataLines.getFirst()}");
     }
 
@@ -35,18 +35,18 @@ public class MatReaderTests {
     void test_getData() throws FileNotFoundException {
 
         String fileName = "src/main/java/data.txt";
-        Double[][] data = MatReader.getData(fileName);
+        double[][] data = MatReader.getData(fileName);
         double expected = 1.0;
-        assertEquals(expected,data[0][0],STR."Failed to construct Double[][] array. Expected \{expected}, received \{data[0][0]}");
+        assertEquals(expected,data[0][0],STR."Failed to construct double[][] array. Expected \{expected}, received \{data[0][0]}");
     }
 
     @Test
     void test_correctLength() throws FileNotFoundException {
 
         String fileName = "src/main/java/data.txt";
-        String testString = "1.0\t2.0";
-        Double[][] data = MatReader.getData(fileName);
-        int expected = 2;
+        String testString = "1.0\t2.0\t3.0";
+        double[][] data = MatReader.getData(fileName);
+        int expected = 3;
         int m = data.length;
         int n = data[0].length;
         assertEquals(expected,m);

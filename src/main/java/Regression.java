@@ -109,7 +109,7 @@ public class Regression {
             phiMod += squareMod; //Increment the sum of squared residuals
             phiData += squareData; //Increment the sum of squared residuals
         }
-        Double rsq = (phiData - phiMod) / phiData; //Calculate the R squared value of the produced model
+        double rsq = (phiData - phiMod) / phiData; //Calculate the R squared value of the produced model
         model.add(a); //Populate the model list with model output
         model.add(phiMod); //Populate the model list with model output
         model.add(rsq); //Populate the model list with model output

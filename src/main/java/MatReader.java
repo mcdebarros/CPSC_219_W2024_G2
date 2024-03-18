@@ -4,14 +4,14 @@ import java.lang.Math;
 
 public class MatReader {
 
-    public static Double[][] getData(String fileName) throws NumberFormatException, FileNotFoundException {
+    public static double[][] getData(String fileName) throws NumberFormatException, FileNotFoundException {
 
         ArrayList<String> dataLines = getStrings(fileName);
-        Double[][] dataMatrix;
+        double[][] dataMatrix;
         boolean hasHeader = containsHeaders(dataLines.getFirst());
         if (!hasHeader) {
             String[] n = (dataLines.getFirst()).split("\t", 0);
-            dataMatrix = new Double[dataLines.size()][n.length];
+            dataMatrix = new double[dataLines.size()][n.length];
             for (int i = 0; i < dataLines.size(); i++) {
                 if (!(dataLines.get(i)).isEmpty()) {
                     try {
@@ -26,7 +26,7 @@ public class MatReader {
             }
         } else {
             String[] n = (dataLines.get(1)).split("\t", 0);
-            dataMatrix = new Double[dataLines.size() - 1][n.length];
+            dataMatrix = new double[dataLines.size() - 1][n.length];
             for (int i = 1; i < dataLines.size(); i++) {
                 if (!(dataLines.get(i)).isEmpty()) {
                     try {

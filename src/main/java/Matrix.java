@@ -10,13 +10,13 @@ import static java.lang.StringTemplate.STR;
 public class Matrix {
 
     private final int[] dim;
-    private final Double[][] matrix;
+    private final double[][] matrix;
     private final int m;
     private final int n;
     private final boolean square;
     private final String type;
     private final boolean invertible;
-    private final Double det;
+    private final double det;
 
     public Matrix(int m, int n) throws ExceptionInInitializerError {
 
@@ -27,7 +27,7 @@ public class Matrix {
         }
         this.m = m;
         this.n = n;
-        matrix = new Double[m][n];
+        matrix = new double[m][n];
         dim = new int[]{m,n};
         square = (m == n);
         if (square) {
@@ -39,9 +39,9 @@ public class Matrix {
         type = type();
     }
 
-    public Matrix(Double[][] aInv) {
+    public Matrix(double[][] aInv) {
 
-        matrix = new Double[aInv[0].length][aInv.length];
+        matrix = new double[aInv[0].length][aInv.length];
         m = aInv.length;
         n = aInv[0].length;
         dim = new int[]{m, n};
@@ -50,7 +50,6 @@ public class Matrix {
         invertible = (det != 0);
         type = type();
     }
-
 
     public Matrix(String data) throws RuntimeException, FileNotFoundException {
 
@@ -80,7 +79,7 @@ public class Matrix {
         return invertible;
     }
 
-    public Double getDet() {
+    public double getDet() {
         return det;
     }
 
@@ -88,11 +87,11 @@ public class Matrix {
         return type;
     }
 
-    public Double getEntry(int i, int j) {
+    public double getEntry(int i, int j) {
         return matrix[i][j];
     }
 
-    public void setEntry(int i, int j, Double entry) {
+    public void setEntry(int i, int j, double entry) {
         matrix[i][j] = entry;
     }
 
@@ -108,7 +107,7 @@ public class Matrix {
         }
 
         int n = a.n;
-        Double[][] aInv = new Double[n][n]; //Initialize inverted matrix
+        double[][] aInv = new double[n][n]; //Initialize inverted matrix
         for (int i = 0; i < n; i++) { //Initialize the inverted matrix as the identity matrix, with 1s along the main diagonal and zeros elsewhere
             for (int j = 0; j < n; j++) {
                 if (i == j) {
@@ -127,7 +126,7 @@ public class Matrix {
             }
             swapRows(a.matrix, i, maxRow); //Swap current row with pivot row
             swapRows(aInv, i, maxRow); //Swap current row with pivot row
-            Double pivot = a.matrix[i][i]; //Scale the row such that the diagonal element is 1
+            double pivot = a.matrix[i][i]; //Scale the row such that the diagonal element is 1
             if (pivot == 0.0) { //Terminate the program if the matrix is singular
                 throw new IllegalArgumentException("Matrix is singular");
             }
@@ -137,7 +136,7 @@ public class Matrix {
             }
             for (int k = 0; k < n; k++) { //Eliminate below the pivot element
                 if (k != i) {
-                    Double factor = a.matrix[k][i];
+                    double factor = a.matrix[k][i];
                     for (int j = 0; j < n; j++) {
                         a.matrix[k][j] -= factor * a.matrix[i][j]; //Eliminate in the input matrix
                         aInv[k][j] -= factor * aInv[i][j]; //Update the inverted matrix
@@ -148,53 +147,48 @@ public class Matrix {
         return new Matrix(aInv);
     }
 
-    private static void swapRows(Double[][] a, int i, int j) {
-        Double[] temp = a[i]; //Temporarily store a[i]
+    private static void swapRows(double[][] a, int i, int j) {
+        double[] temp = a[i]; //Temporarily store a[i]
         a[i] = a[j]; //Assign a[j] to a[i]
         a[j] = temp; //Assign a[i] to a[j]
     }
 
     public static Matrix transpose(Matrix a) {
-        Double [][] transposeDub = new Double[a.n][a.m];
-        for (int i = 0; i < a.m; i++) {
-            for (int j = 0; j < a.n; j++) {
-                transposeDub[i][j] = a.matrix[j][i];
+        Matrix transpose = new Matrix(a.size()[1],a.size()[0]);
+        for (int i = 0; i < a.size()[0]; i++) {
+            for (int j = 0; j < a.size()[1]; j++) {
+                transpose.setEntry(j,i,a.getEntry(i,j));
             }
         }
-        return new Matrix(transposeDub);
+        return transpose;
     }
 
-    private static Double determinant(Double[][] matrix) {
-
+    public static double determinant(double[][] matrix) {
         int n = matrix.length;
         if (n == 1) {
             return matrix[0][0];
-        }
-        if (n == 2) {
+        } else if (n == 2) {
             return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
-        }
-        double det = 0;
-        for (int j = 0; j < n; j++) {
-            // Calculate the cofactor for element (0,j)
-            Double[][] minor = new Double[n - 1][n - 1];
-            for (int row = 1; row < n; row++) {
-                int minorCol = 0;
-                for (int col = 0; col < n; col++) {
-                    if (col != j) {
-                        minor[row - 1][minorCol] = matrix[row][col];
-                        minorCol++;
+        } else {
+            double det = 0;
+            for (int j = 0; j < n; j++) {
+                double[][] submatrix = new double[n - 1][n - 1];
+                for (int k = 1; k < n; k++) {
+                    for (int l = 0, m = 0; l < n; l++) {
+                        if (l != j) {
+                            submatrix[k - 1][m++] = matrix[k][l];
+                        }
                     }
                 }
+                det += Math.pow(-1, j) * matrix[0][j] * determinant(submatrix);
             }
-            // Recursive call to calculate the determinant of the minor
-            det += Math.pow(-1, j) * matrix[0][j] * determinant(minor);
+            return det;
         }
-        return det;
     }
 
     public static Matrix matMult(Matrix a, Matrix b) throws IllegalArgumentException {
 
-        Double[][] c = new Double[a.m][b.n]; //Initialize output matrix
+        double[][] c = new double[a.m][b.n]; //Initialize output matrix
         if (a.n != b.m) { //Check that passed matrices have compatible dimensions
             throw new IllegalArgumentException("Incompatible matrix dimensions for matrix multiplication!");
         } else { //Perform matrix multiplication by the general formula
@@ -228,7 +222,7 @@ public class Matrix {
         return type;
     }
 
-    public Double[] getRow(int row) {
+    public double[] getRow(int row) {
         try {
             return matrix[row - 1];
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -236,18 +230,18 @@ public class Matrix {
         }
     }
 
-    //public Double[] gerCol(int col) {
+    //public double[] gerCol(int col) {
 
-        //Double[] column = new Column
+        //double[] column = new Column
         //try {
            // return matrix[0][col];
       //  }
-        //return new Double[0];
+        //return new double[0];
     //}
 
     public void showMat() {
 
-        for (Double[] row : matrix) {
+        for (double[] row : matrix) {
             System.out.println(Arrays.toString(row));
         }
     }
