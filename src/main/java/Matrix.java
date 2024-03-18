@@ -79,6 +79,7 @@ public class Matrix {
     public boolean isSquare() {
         return square;
     }
+    public double[][] getMatrix() { return matrix;}
 
     public double getDet() {
         return det;
