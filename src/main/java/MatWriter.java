@@ -27,7 +27,7 @@ public class MatWriter {
                 BufferedWriter aBuffed = new BufferedWriter(aWrite); //Initialized buffered writer
                 for (int i = 0; i < a.size()[0]; i++) { //For each coefficient, write a new line containing the order of the coefficient and its value, separated by a tab
                     String coefIndex = STR."a\{i}";
-                    aBuffed.write(STR."\{coefIndex}\t\{a.getEntry(i,0)}\n");
+                    aBuffed.write(STR."\{coefIndex}\t\{a.getEntry(0,i)}\n");
                 }
                 aBuffed.write(STR."\nphi\t\{phi}\nRSQ\t\{rsq}"); //Write the phi and rsq values to the file on their own lines
                 aBuffed.flush(); //Flush the file

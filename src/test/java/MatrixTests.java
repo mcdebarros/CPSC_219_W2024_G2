@@ -120,4 +120,5 @@ public class MatrixTests {
         Matrix testMat = new Matrix("src/main/java/data.txt");
         Matrix testTrans = Matrix.transpose(testMat);
     }
+
 }

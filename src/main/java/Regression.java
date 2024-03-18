@@ -55,12 +55,12 @@ public class Regression {
         for (int i = 0; i < a.size()[0]; i++) {
             System.out.println(STR."a\{i} = \{a.getEntry(i,0)}");
         }
-        System.out.println(STR."phi = \{phi}");
+        System.out.println(STR."\nphi = \{phi}");
         System.out.println(STR."rsq = \{rsq}");
-        System.out.println("\nWould you like to write it to a file? (Y/N");
+        System.out.println("\nWould you like to write it to a file? (Y/N)");
         String write = input.nextLine().toUpperCase();
         while (!((write.equals("Y")) || write.equals("N"))) {
-            System.out.println("I didn't understand your selection. Please chhose one of (Y/N).");
+            System.out.println("I didn't understand your selection. Please choose one of (Y/N).");
             write = input.nextLine();
         }
         if (write.equals("Y")) {

@@ -39,14 +39,18 @@ public class Matrix {
         type = type();
     }
 
-    public Matrix(double[][] aInv) {
+    public Matrix(double[][] matrix) {
 
-        matrix = new double[aInv[0].length][aInv.length];
-        m = aInv.length;
-        n = aInv[0].length;
+        this.matrix = matrix;
+        m = matrix.length;
+        n = matrix[0].length;
         dim = new int[]{m, n};
         square = (m == n);
-        det = determinant(matrix);
+        if (square) {
+            det = determinant(matrix);
+        } else {
+            det = 0;
+        }
         invertible = (det != 0);
         type = type();
     }
@@ -164,39 +168,57 @@ public class Matrix {
     }
 
     public static double determinant(double[][] matrix) {
-        int n = matrix.length;
-        if (n == 1) {
-            return matrix[0][0];
-        } else if (n == 2) {
-            return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
-        } else {
-            double det = 0;
-            for (int j = 0; j < n; j++) {
-                double[][] submatrix = new double[n - 1][n - 1];
-                for (int k = 1; k < n; k++) {
-                    for (int l = 0, m = 0; l < n; l++) {
-                        if (l != j) {
-                            submatrix[k - 1][m++] = matrix[k][l];
-                        }
-                    }
-                }
-                det += Math.pow(-1, j) * matrix[0][j] * determinant(submatrix);
-            }
-            return det;
+        int size = matrix.length;
+        if (size != matrix[0].length) {
+            throw new IllegalArgumentException("Matrix must be square");
         }
+        if (size == 1) {
+            return matrix[0][0]; // Base case: determinant of a 1x1 matrix
+        }
+
+        double det = 0;
+        for (int i = 0; i < size; i++) {
+            det += matrix[0][i] * cofactor(matrix, 0, i);
+        }
+        return det;
+    }
+
+    public static double[][] submatrix(double[][] matrix, int row, int col) {
+        int size = matrix.length;
+        double[][] sub = new double[size - 1][size - 1];
+        int r = 0;
+        for (int i = 0; i < size; i++) {
+            if (i == row) continue;
+            int c = 0;
+            for (int j = 0; j < size; j++) {
+                if (j == col) continue;
+                sub[r][c] = matrix[i][j];
+                c++;
+            }
+            r++;
+        }
+        return sub;
+    }
+
+    public static double cofactor(double[][] matrix, int row, int col) {
+        return Math.pow(-1, row + col) * determinant(submatrix(matrix, row, col));
     }
 
     public static Matrix matMult(Matrix a, Matrix b) throws IllegalArgumentException {
 
-        double[][] c = new double[a.m][b.n]; //Initialize output matrix
-        if (a.n != b.m) { //Check that passed matrices have compatible dimensions
+        int rowsA = a.size()[0];
+        int colsA = a.size()[1];
+        int rowsB = b.size()[0];
+        int colsB = b.size()[1];
+        double[][] c = new double[rowsA][colsB]; //Initialize output matrix
+        if (colsA != rowsB) { //Check that passed matrices have compatible dimensions
             throw new IllegalArgumentException("Incompatible matrix dimensions for matrix multiplication!");
         } else { //Perform matrix multiplication by the general formula
-            for (int i = 0; i < a.m; i++) {
-                for (int j = 0; j < b.n; j++) {
-                    double entry = 0.0; //Initialize the entry to store in c[i][j]
-                    for (int n = 0; n < a.n; n++) {
-                        entry += a.matrix[i][n] * b.matrix[n][j]; //Sum the product of matrix members based on dimension n (colsA, rowsB) for some i,j
+            for (int i = 0; i < rowsA; i++) {
+                for (int j = 0; j < colsB; j++) {
+                    double entry = 0.0;
+                    for (int n = 0; n < colsA; n++) {
+                        entry += a.getEntry(i,n) * b.getEntry(n,j); //Sum the product of matrix members based on dimension n (colsA, rowsB) for some i,j
                     }
                     c[i][j] = entry; //Assign the i,j entry of the c matrix
                 }
