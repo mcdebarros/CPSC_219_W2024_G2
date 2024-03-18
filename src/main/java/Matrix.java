@@ -15,8 +15,9 @@ public class Matrix {
     private final int n;
     private final boolean square;
     private final String type;
-    private final boolean invertible;
-    private final double det;
+    private boolean invertible;
+    private double det;
+    private boolean singular;
 
     public Matrix(int m, int n) throws ExceptionInInitializerError {
 
@@ -77,10 +78,6 @@ public class Matrix {
 
     public boolean isSquare() {
         return square;
-    }
-
-    public boolean isInvertible() {
-        return invertible;
     }
 
     public double getDet() {
