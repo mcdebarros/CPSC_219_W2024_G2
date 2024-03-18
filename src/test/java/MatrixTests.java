@@ -82,31 +82,36 @@ public class MatrixTests {
     @Test
     void test_typeData() {
         Matrix Matrix = new Matrix(3, 2);
-        assertEquals("Data", Matrix.getType());
+        String expected = "Data";
+        assertEquals(expected, Matrix.getType());
     }
 
     @Test
     void test_typeRowVector() {
         Matrix Matrix = new Matrix(0, 2);
-        assertEquals("Row Vector", Matrix.getType());
+        String expected = "Row Vector";
+                assertEquals(expected, Matrix.getType());
     }
 
     @Test
     void test_typeColumnVector() {
         Matrix Matrix = new Matrix(2, 0);
-        assertEquals("Column Vector", Matrix.getType());
+        String expected = "Column Vector";
+                assertEquals(expected, Matrix.getType());
     }
 
     @Test
     void test_typeSystem() {
         Matrix Matrix = new Matrix(4, 3);
-        assertEquals("System", Matrix.getType());
+        String expected = "System";
+        assertEquals(expected, Matrix.getType());
     }
 
     @Test
-    void test_typeSquare() {
-        Matrix Matrix = new Matrix(3, 3);
-        assertEquals("System", Matrix.getType());
+    void test_typeSquare() throws FileNotFoundException {
+        Matrix Matrix = new Matrix("src/main/java/data.txt");
+        String expected = "Square";
+        assertEquals(expected, Matrix.getType());
     }
 
 
