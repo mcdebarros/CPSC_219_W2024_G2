@@ -19,7 +19,7 @@ public class MatrixOperatorsDemo {
 
         System.out.println("Inverse Matrix");
         Matrix invertedData = Matrix.inverse(data);
-        data.showMat();
+        data.showMat(); // changed the original matrix to identity matrix?
         invertedData.showMat();
         System.out.println();
 
