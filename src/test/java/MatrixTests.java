@@ -69,4 +69,13 @@ public class MatrixTests {
         assertTrue(equal,"Returned false for identical matrices! Expected true.");
 
     }
+
+    @Test
+    void test_det_2by2() throws FileNotFoundException {
+
+        Matrix testMat= new Matrix("src/main/java/data.txt");
+        Double determinant = testMat.getDet();
+        Double expected = -3.0;
+        assertEquals(expected,determinant,STR."Incorrectly calculated determinant. Expected -3.0, received \{determinant}.");
+    }
 }
