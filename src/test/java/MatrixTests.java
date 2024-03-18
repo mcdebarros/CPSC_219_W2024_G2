@@ -78,4 +78,36 @@ public class MatrixTests {
         Double expected = -3.0;
         assertEquals(expected,determinant,STR."Incorrectly calculated determinant. Expected -3.0, received \{determinant}.");
     }
+
+    @Test
+    void test_typeData() {
+        Matrix Matrix = new Matrix(3, 2);
+        assertEquals("Data", Matrix.getType());
+    }
+
+    @Test
+    void test_typeRowVector() {
+        Matrix Matrix = new Matrix(0, 2);
+        assertEquals("Row Vector", Matrix.getType());
+    }
+
+    @Test
+    void test_typeColumnVector() {
+        Matrix Matrix = new Matrix(2, 0);
+        assertEquals("Column Vector", Matrix.getType());
+    }
+
+    @Test
+    void test_typeSystem() {
+        Matrix Matrix = new Matrix(4, 3);
+        assertEquals("System", Matrix.getType());
+    }
+
+    @Test
+    void test_typeSquare() {
+        Matrix Matrix = new Matrix(3, 3);
+        assertEquals("System", Matrix.getType());
+    }
+
+
 }
