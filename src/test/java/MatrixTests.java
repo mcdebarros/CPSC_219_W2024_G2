@@ -121,4 +121,36 @@ public class MatrixTests {
         Matrix testTrans = Matrix.transpose(testMat);
     }
 
+    @Test
+    void test_matMult1() { // Multiplying a 2x2 matrix by a 2x2 matrix
+        double[][] matrixA = {{1, 2}, {2, 3}};
+        double[][] matrixB = {{2, 4}, {3, 6}};
+        double [][] expected = {{8, 16}, {13, 26}};
+        Matrix result = Matrix.matMult(new Matrix(matrixA), new Matrix(matrixB));
+        assertArrayEquals(expected, result.getMatrix());
+    }
+    @Test
+    void test_matMult2() { // Multiplying a 3x2 matrix by a 2x3 matrix
+        double[][] matrixA = {{1, 2}, {2, 3}, {3, 4}};
+        double[][] matrixB = {{2, 4, 6}, {3, 6, 9}};
+        double[][] expected = {{8, 16, 24}, {13, 26, 39}, {18, 36, 54}};
+        Matrix result = Matrix.matMult(new Matrix(matrixA), new Matrix(matrixB));
+        assertArrayEquals(expected, result.getMatrix());
+    }
+    @Test
+    void test_matMult3() { // Multiplying a 2x3 matrix by a 3x2 matrix
+        double[][] matrixA = {{1, 2, 3}, {3, 4, 5}};
+        double[][] matrixB = {{2, 4,}, {3, 6}, {4, 8}};
+        double[][] expected = {{20, 40}, {38, 76}};
+        Matrix result = Matrix.matMult(new Matrix(matrixA), new Matrix(matrixB));
+        assertArrayEquals(expected, result.getMatrix());
+    }
+    @Test
+    void test_matMult4() { // Multiplying a 3x3 matrix by a 3x3 matrix
+        double[][] matrixA = {{1, 2, 3}, {3, 4, 5}, {5, 6, 7}};
+        double[][] matrixB = {{2, 4, 6}, {3, 6, 9}, {4, 8, 12}};
+        double[][] expected = {{20, 40, 60}, {38, 76, 114}, {56, 112, 168}};
+        Matrix result = Matrix.matMult(new Matrix(matrixA), new Matrix(matrixB));
+        assertArrayEquals(expected, result.getMatrix());
+    }
 }
