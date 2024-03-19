@@ -126,6 +126,7 @@ public class Matrix {
                 }
             }
         }
+
         for (int i = 0; i < n; i++) { //Perform Gaussian elimination w/ partial pivoting
             int maxRow = i;
             for (int j = i + 1; j < n; j++) { //Find the pivot row by locating the largest absolute value in some column
