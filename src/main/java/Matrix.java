@@ -269,7 +269,13 @@ public class Matrix {
 
     public void showMat() {
 
-        for (double[] row : matrix) {
+        String[][] matString = new String[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                matString[i][j] = String.format("%.2f",matrix[i][j]);
+            }
+        }
+        for (String[] row : matString) {
             System.out.println(Arrays.toString(row));
         }
     }
