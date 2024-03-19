@@ -17,14 +17,14 @@ public class MatrixOperatorsDemo {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("|  Determinant\t|\t [Length, Width] \t|\tSquare Matrix?\t|\t\tType?\t\t|");
         System.out.println("---------------------------------------------------------------------------------");
-        System.out.print("|\t  " + data.getDet() + "\t\t");
-        System.out.print("|\t\t " + Arrays.toString(data.size()) + "\t\t\t");
+        System.out.print(STR."|\t  \{data.getDet()}\t\t");
+        System.out.print(STR."|\t\t \{Arrays.toString(data.size())}\t\t\t");
         if (data.isSquare()) {
             System.out.print("|\t\tTrue\t\t|");
         } else {
             System.out.print("|\t\t  False\t\t\t|");
         }
-        System.out.println("\t\t" + data.getType() + "\t\t|");
+        System.out.println(STR."\t\t\{data.getType()}\t\t|");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println();
 

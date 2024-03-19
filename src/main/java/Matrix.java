@@ -258,14 +258,18 @@ public class Matrix {
         }
     }
 
-    //public double[] gerCol(int col) {
+    public double[][] getCol(int col) {
 
-        //double[] column = new Column
-        //try {
-           // return matrix[0][col];
-      //  }
-        //return new double[0];
-    //}
+        double[][] column = new double[m][1];
+        try {
+            for (int i = 0; i < m; i++) {
+                column[i][0] = matrix[i][col - 1];
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println(STR."Column \{col} out of range for matrix with \{n} columns.");
+        }
+        return column;
+    }
 
     public void showMat() {
 
