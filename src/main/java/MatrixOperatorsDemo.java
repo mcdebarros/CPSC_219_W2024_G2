@@ -41,5 +41,6 @@ public class MatrixOperatorsDemo {
         System.out.println("Multiplied Matrix of Original Matrix and Inverse Matrix:");
         Matrix multipliedMatrix = Matrix.matMult(data, invertedData);
         multipliedMatrix.showMat();
+
     }
 }
