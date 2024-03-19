@@ -153,4 +153,33 @@ public class MatrixTests {
         Matrix result = Matrix.matMult(new Matrix(matrixA), new Matrix(matrixB));
         assertArrayEquals(expected, result.getMatrix());
     }
+
+    @Test
+    void test_invertibleMatrix() { // Testing an invertible matrix
+        //Arrange
+        double[][] matrixA = {{2, 0}, {0, 2}};
+        Matrix matrix = new Matrix(matrixA);
+        //Act
+        Matrix inverseMatrix = Matrix.inverse(matrix);
+        //Assert
+        double[][] expectedInvertedMatrix = {{0.5, 0}, {0, 0.5}};
+        Matrix expectedInverse = new Matrix(expectedInvertedMatrix);
+        assertArrayEquals(expectedInverse.getMatrix(), inverseMatrix.getMatrix());
+    }
+
+    @Test
+    void test_nonInvertibleMatrix() { // Testing a non-invertible matrix
+        //Arrange
+        double[][] matrixA = {{1, 2}, {4, 8}};
+        Matrix matrix = new Matrix(matrixA);
+        //Act
+        try {
+            Matrix.inverse(matrix);
+            fail("Expected IllegalArgumentException");
+        }
+        catch (IllegalArgumentException illegalArgumentException) {
+            //Assert
+            assertEquals("Matrix must be square with nonzero determinant to be invertible!", illegalArgumentException.getMessage());
+        }
+    }
 }
