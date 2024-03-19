@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.Arrays;
 
 public class MatrixOperatorsDemo {
     public static void main(String[] args) throws FileNotFoundException {
