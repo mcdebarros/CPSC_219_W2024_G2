@@ -17,7 +17,6 @@ public class Matrix {
     private final String type;
     private boolean invertible;
     private double det;
-    private boolean singular;
 
     public Matrix(int m, int n) throws ExceptionInInitializerError {
 
@@ -95,6 +94,8 @@ public class Matrix {
 
     public void setEntry(int i, int j, double entry) {
         matrix[i][j] = entry;
+        det = determinant(matrix);
+        invertible = (det != 0);
     }
 
     @Override
@@ -104,11 +105,17 @@ public class Matrix {
 
     public static Matrix inverse(Matrix a) throws IllegalArgumentException {
 
-        if (!a.invertible) {
+        Matrix clone = new Matrix(a.m,a.n);
+        for (int i = 0; i < a.m; i++) {
+            for (int j = 0; j < a.n; j++) {
+                clone.setEntry(i,j,a.matrix[i][j]);
+            }
+        }
+        if (!clone.invertible) {
             throw new IllegalArgumentException("Matrix must be square with nonzero determinant to be invertible!");
         }
 
-        int n = a.n;
+        int n = clone.n;
         double[][] aInv = new double[n][n]; //Initialize inverted matrix
         for (int i = 0; i < n; i++) { //Initialize the inverted matrix as the identity matrix, with 1s along the main diagonal and zeros elsewhere
             for (int j = 0; j < n; j++) {
@@ -122,25 +129,25 @@ public class Matrix {
         for (int i = 0; i < n; i++) { //Perform Gaussian elimination w/ partial pivoting
             int maxRow = i;
             for (int j = i + 1; j < n; j++) { //Find the pivot row by locating the largest absolute value in some column
-                if (Math.abs(a.matrix[j][i]) > Math.abs(a.matrix[maxRow][i])) {
+                if (Math.abs(clone.matrix[j][i]) > Math.abs(clone.matrix[maxRow][i])) {
                     maxRow = j;
                 }
             }
-            swapRows(a.matrix, i, maxRow); //Swap current row with pivot row
+            swapRows(clone.matrix, i, maxRow); //Swap current row with pivot row
             swapRows(aInv, i, maxRow); //Swap current row with pivot row
-            double pivot = a.matrix[i][i]; //Scale the row such that the diagonal element is 1
+            double pivot = clone.matrix[i][i]; //Scale the row such that the diagonal element is 1
             if (pivot == 0.0) { //Terminate the program if the matrix is singular
                 throw new IllegalArgumentException("Matrix is singular");
             }
             for (int j = 0; j < n; j++) {
-                a.matrix[i][j] /= pivot; //Scale this row in the input matrix
+                clone.matrix[i][j] /= pivot; //Scale this row in the input matrix
                 aInv[i][j] /= pivot; //Update the inverted matrix
             }
             for (int k = 0; k < n; k++) { //Eliminate below the pivot element
                 if (k != i) {
-                    double factor = a.matrix[k][i];
+                    double factor = clone.matrix[k][i];
                     for (int j = 0; j < n; j++) {
-                        a.matrix[k][j] -= factor * a.matrix[i][j]; //Eliminate in the input matrix
+                        clone.matrix[k][j] -= factor * clone.matrix[i][j]; //Eliminate in the input matrix
                         aInv[k][j] -= factor * aInv[i][j]; //Update the inverted matrix
                     }
                 }

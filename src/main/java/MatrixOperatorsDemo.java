@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Arrays;
 
 public class MatrixOperatorsDemo {
     public static void main(String[] args) throws FileNotFoundException {
@@ -19,8 +20,9 @@ public class MatrixOperatorsDemo {
 
         System.out.println("Inverse Matrix");
         Matrix invertedData = Matrix.inverse(data);
-        data.showMat();
         invertedData.showMat();
+        System.out.println("Original data");
+        data.showMat();
         System.out.println();
 
         System.out.println("Multiplied Matrix of Original Matrix and Transposed Matrix");
