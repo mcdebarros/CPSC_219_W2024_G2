@@ -5,16 +5,16 @@ import static java.lang.StringTemplate.STR;
 
 public class Regression {
 
-    static final String INTRO = "Welcome to the linear regression tool!";
+    static final String INTRO = "\nWelcome to the linear regression tool!";
     static final String HELP = """
-            To use the tool, create a datafile named "data.txt" and copy the filepath.
-            Your data file should contain m rows and n columns, and be populated by decimal entries separated by tabs.
-            Once prompted, tell the program the path to your datafile, and the integer order of the model you wish to fit.
-            The program will then run the regression tool and fit coefficients for your model, as well as generate an rsq and phi.
-            You will have the option to write this data to an output file once the regression is complete.
-            If at any point you wish to see the help menu, just enter "HELP".""";
+            - To use the tool, create a datafile named "data.txt" and copy the filepath.
+            - Your data file should contain m rows and n columns, and be populated by decimal entries separated by tabs.
+            - Once prompted, tell the program the path to your datafile, and the integer order of the model you wish to fit.
+            - The program will then run the regression tool and fit coefficients for your model, as well as generate an rsq and phi.
+            - You will have the option to write this data to an output file once the regression is complete.
+            - If at any point you wish to see the help menu, just enter "HELP".""";
     static final String PROMPT_PATH = "Please input your file path: ";
-    static final String PROMPT_ORDER = "Please input your model order: ";
+    static final String PROMPT_ORDER = "\nPlease input your model order: ";
 
     /**
      * Collects inputs and directs execution of linear LSR
@@ -28,8 +28,8 @@ public class Regression {
         String orderStr; // Initialize order string
         String path; // Initialize filepath string
         Scanner input = new Scanner(System.in); // Initialize input scanner
-        System.out.println(INTRO); // Print introduction and use instructions, then prompt for file path
-        System.out.println(HELP);
+        System.out.println(STR."\{INTRO}\n"); // Print introduction and use instructions, then prompt for file path
+        System.out.println(STR."\{HELP}\n");
         System.out.println(PROMPT_PATH);
         path = input.nextLine().toUpperCase();
         while (path.equals("HELP")) {
@@ -57,12 +57,12 @@ public class Regression {
         Matrix a = (Matrix) model.getFirst(); // Fetch and cast the coefficient matrix object
         double phi = (double) model.get(1); // Fetch and cast the phi double
         double rsq = (double) model.get(2); // Fetch and cast the rsq double
-        System.out.println("Model generated! Find model data below:\n\n");
+        System.out.println("\nModel generated! Find model data below:\n");
         for (int i = 0; i < a.size()[0]; i++) {
             System.out.println(STR."a\{i} = \{a.getEntry(i,0)}"); // Output model coefficients
         }
-        System.out.println(STR."\n\nphi = \{phi}"); // Output phi
-        System.out.println(STR."\nrsq = \{rsq}"); // Output rsq
+        System.out.println(STR."\nphi = \{phi}"); // Output phi
+        System.out.println(STR."rsq = \{rsq}"); // Output rsq
         System.out.println("\n\nWould you like to write it to a file? (Y/N)"); // Prompt for file writing and collect selection
         String write = input.nextLine().toUpperCase();
         while (!((write.equals("Y")) || write.equals("N"))) { // Loop while not yes or no
@@ -72,7 +72,7 @@ public class Regression {
         if (write.equals("Y")) { // Call the file writer if input is yes
             MatWriter.writeModel(model);
         }
-        System.out.println("Modelling complete!");
+        System.out.println("\nSee you next time!");
     }
 
     /**

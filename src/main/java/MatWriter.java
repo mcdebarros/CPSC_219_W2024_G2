@@ -32,21 +32,19 @@ public class MatWriter {
                 BufferedWriter aBuffed = new BufferedWriter(aWrite); //Initialized buffered writer
                 for (int i = 0; i < a.size()[0]; i++) { //For each coefficient, write a new line containing the order of the coefficient and its value, separated by a tab
                     String coefIndex = STR."a\{i}";
-                    aBuffed.write(STR."\{coefIndex}\t\{a.getEntry(0,i)}\n");
+                    aBuffed.write(STR."\{coefIndex} = \{a.getEntry(i,0)}\n");
                 }
-                aBuffed.write(STR."\nphi\t\{phi}\nRSQ\t\{rsq}"); //Write the phi and rsq values to the file on their own lines
+                aBuffed.write(STR."\nphi = \{phi}\nRSQ = \{rsq}"); //Write the phi and rsq values to the file on their own lines
                 aBuffed.flush(); //Flush the file
                 aBuffed.close(); //Close the file
-                System.out.println("""
-                            File written as "coefficients.txt"! See you next time!""");
             } catch (IOException e) { //Terminate the program if the file cannot be written to
-                System.err.println("Oops! Couldn't write to the file.");
+                System.err.println("\nOops! Couldn't write to the file.");
             }
         } else { //Terminate the program if the file to write to cannot be created or found
-            System.err.println("Cannot access file to write to!");
+            System.err.println("\nCannot access file to write to!");
             System.exit(11);
         }
-        System.out.println("Model written to 'coefficients.txt'.");
+        System.out.println("\nModel written to 'coefficients.txt'.");
     }
 
     /**
