@@ -87,14 +87,15 @@ public class MatrixTests {
     }
 
     @Test
-    void test_det_2by2() throws FileNotFoundException {
+    void test_det_2by2() {
         //Arrange
-        Matrix testMat= new Matrix("src/main/java/data.txt");
+        double [][] matrixA = {{3, 1}, {2, 4}};
+        Matrix testMat = new Matrix(matrixA);
         //Act
         double determinant = testMat.getDet();
-        double expected = 0;
+        double expected = 10;
         //Assert
-        assertEquals(expected,determinant,STR."Incorrectly calculated determinant. Expected -3.0, received \{determinant}.");
+        assertEquals(expected, determinant, "Incorrectly calculated determinant.");
     }
 
     @Test
