@@ -217,7 +217,7 @@ public class Matrix {
      * @param i first row to swap
      * @param j second row to swap
      */
-    private static void swapRows(double[][] a, int i, int j) {
+    public static void swapRows(double[][] a, int i, int j) {
         double[] temp = a[i]; //Temporarily store a[i]
         a[i] = a[j]; //Assign a[j] to a[i]
         a[j] = temp; //Assign a[i] to a[j]
