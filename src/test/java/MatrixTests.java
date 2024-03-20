@@ -230,4 +230,38 @@ public class MatrixTests {
             assertEquals("Matrix must be square with nonzero determinant to be invertible!", illegalArgumentException.getMessage());
         }
     }
+
+    @Test
+    void test_swapRows1() { // Swapping rows of a 2x2 matrix
+        //Assert
+        double[][] matrixA = {{1, 2}, {3, 4}};
+        //Act
+        Matrix.swapRows(matrixA,0,1);
+        //Assert
+        double[][] expectedMatrix = {{3, 4}, {1, 2}};
+        assertArrayEquals(expectedMatrix, matrixA);
+    }
+
+    @Test
+    void test_swapRows2() { // Swapping rows of a 3x2 matrix
+        //Assert
+        double[][] matrixA = {{1, 2}, {3, 4}, {5, 6}};
+        //Act
+        Matrix.swapRows(matrixA,0,2); //* j is equal to 2 in this case because we are swapping the 3rd row (index = 2), not the 2nd row (index = 2)
+        //Assert
+        double[][] expectedMatrix = {{5, 6}, {3, 4}, {1, 2}};
+        assertArrayEquals(expectedMatrix, matrixA);
+    }
+
+    @Test
+    void test_swapRows3() { // Swapping rows of a 2x2 matrix
+        //Assert
+        double[][] matrixA = {{1, 2}, {3, 4}, {5, 6}, {7, 8}};
+        //Act
+        Matrix.swapRows(matrixA,0,3);
+        //Assert
+        double[][] expectedMatrix = {{7, 8}, {3, 4}, {5, 6}, {1, 2}};
+        assertArrayEquals(expectedMatrix, matrixA);
+    }
+
 }
