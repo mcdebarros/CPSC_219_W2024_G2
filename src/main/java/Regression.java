@@ -89,6 +89,7 @@ public class Regression {
         List<Object> model = new ArrayList<>(); //Initialize object list to be populated with model outputs
         for (int i = 0; i < data.size()[0]; i++) { //Populate the y vector with provided data
             y.setEntry(i,0,data.getEntry(i,1));
+
         }
         for (int i = 0; i < data.size()[0]; i++) { //Populate the z matrix with appropriate parameters
             for (int j = 0; j < order; j++) {

@@ -17,21 +17,21 @@ public class MatReader {
         double[][] dataMatrix; // Initialize the matrix double
         boolean hasHeader = containsHeaders(dataLines.getFirst()); //
         if (!hasHeader) { // Index from 0 if no headers found
-            String[] n = (dataLines.getFirst()).split("\t", 0); // Create a string array where the length defines
-            dataMatrix = new double[dataLines.size()][n.length];
-            for (int i = 0; i < dataLines.size(); i++) {
-                if (!(dataLines.get(i)).isEmpty()) {
+            String[] n = (dataLines.getFirst()).split("\t", 0); // Create a string by splitting the first entry in dataLines, where the length defines the n dimension of dataMatrix
+            dataMatrix = new double[dataLines.size()][n.length]; // Initialize the data matrix
+            for (int i = 0; i < dataLines.size(); i++) { // Iterate through dataLines
+                if (!(dataLines.get(i)).isEmpty()) { // Operate only on populated entries
                     try {
-                        String[] lineContent = (dataLines.get(i)).split("\t", 0);
-                        for (int j = 0; j < n.length; j++) {
-                            dataMatrix[i][j] = Double.parseDouble(lineContent[j]);
+                        String[] lineContent = (dataLines.get(i)).split("\t", 0); // Split the line into component entries
+                        for (int j = 0; j < n.length; j++) { // Iterate through the string vector
+                            dataMatrix[i][j] = Double.parseDouble(lineContent[j]); // Parse the entries into doubles and assign them to dataMatrix
                         }
                     } catch (NumberFormatException e) {
-                        throw new NumberFormatException(STR."Incorrect data format at line \{i + 1}. Check data");
+                        throw new NumberFormatException(STR."Incorrect data format at line \{i + 1}. Check data"); // Terminate the program if data format is not integer
                     }
                 }
             }
-        } else { // Index from 1 if data contains headers
+        } else { // Index from 1 if data contains headers, otherwise, same as above
             String[] n = (dataLines.get(1)).split("\t", 0);
             dataMatrix = new double[dataLines.size() - 1][n.length];
             for (int i = 1; i < dataLines.size(); i++) {
@@ -57,13 +57,13 @@ public class MatReader {
      * @throws FileNotFoundException when the file cannot be found at the specified path
      */
     public static ArrayList<String> getStrings(String fileName) throws FileNotFoundException {
-        ArrayList<String> dataLines = new ArrayList<>();
-        File dataFile = new File(fileName);
-        if (dataFile.exists() && dataFile.canRead() && dataFile.isFile()) {
+        ArrayList<String> dataLines = new ArrayList<>(); // Initialize array list of data file line strings
+        File dataFile = new File(fileName); // Initialize the data file
+        if (dataFile.exists() && dataFile.canRead() && dataFile.isFile()) { // Proceed only if data file exists and is readable
             try {
-                FileReader readData = new FileReader(dataFile);
-                BufferedReader buffedData = new BufferedReader(readData);
-                String dataLine = buffedData.readLine();
+                FileReader readData = new FileReader(dataFile); // Initialize the file reader
+                BufferedReader buffedData = new BufferedReader(readData); // Initialize the buffered reader
+                String dataLine = buffedData.readLine(); // Create a string of the first data line
                 int i = 0;
                 while (dataLine != null) {
                     dataLines.add(i,dataLine);

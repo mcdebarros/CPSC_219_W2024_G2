@@ -145,8 +145,10 @@ public class Matrix {
      */
     public void setEntry(int i, int j, double entry) {
         matrix[i][j] = entry;
-        det = determinant(matrix); // Update determinant as entries change
-        invertible = (det != 0); // Update invertible property as determinant changes
+        if (square) {
+            det = determinant(matrix); // Update determinant as entries change
+            invertible = (det != 0); // Update invertible property as determinant changes
+        }
     }
 
     /**
