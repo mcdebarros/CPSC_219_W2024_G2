@@ -264,4 +264,38 @@ public class MatrixTests {
         assertArrayEquals(expectedMatrix, matrixA);
     }
 
+    @Test
+    void test_subMatrix1() { //Getting a submatrix from a 3x3 matrix
+        //Assert
+        double[][] matrixA = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        //Act
+        double[][] submatrixA = Matrix.submatrix(matrixA, 0, 0);
+        //Assert
+        double[][] expectedSubMatrix = {{5, 6}, {8, 9}};
+        assertArrayEquals(expectedSubMatrix, submatrixA);
+    }
+
+    @Test
+    void test_subMatrix2() { //Getting a different submatrix from a 3x3 matrix
+        //Assert
+        double[][] matrixA = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        //Act
+        double[][] submatrixA = Matrix.submatrix(matrixA, 2, 2);
+        //Assert
+        double[][] expectedSubMatrix = {{1, 2}, {4, 5}};
+        assertArrayEquals(expectedSubMatrix, submatrixA);
+    }
+
+    @Test
+    void test_subMatrix3() { //Getting a different submatrix from a 3x3 matrix
+        //Assert
+        double[][] matrixA = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        //Act
+        double[][] submatrixA = Matrix.submatrix(matrixA, 1, 2);
+        //Assert
+        double[][] expectedSubMatrix = {{1, 2}, {7, 8}};
+        assertArrayEquals(expectedSubMatrix, submatrixA);
+    }
+
+
 }
