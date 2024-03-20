@@ -4,6 +4,13 @@ import java.lang.Math;
 
 public class MatReader {
 
+    /**
+     * Read the file to extract matrix data
+     * @param fileName String of path to file
+     * @return double[][] of file data
+     * @throws NumberFormatException when file contains non-double entries
+     * @throws FileNotFoundException when file not found in specified path
+     */
     public static double[][] getData(String fileName) throws NumberFormatException, FileNotFoundException {
 
         ArrayList<String> dataLines = getStrings(fileName);
@@ -43,7 +50,12 @@ public class MatReader {
         return dataMatrix;
     }
 
-
+    /**
+     * Reads each line in the datafile and stores it in an arraylist
+     * @param fileName path to file
+     * @return ArrayList of file line strings
+     * @throws FileNotFoundException when the file cannot be found at the specified path
+     */
     public static ArrayList<String> getStrings(String fileName) throws FileNotFoundException {
         ArrayList<String> dataLines = new ArrayList<>();
         File dataFile = new File(fileName);
@@ -69,6 +81,11 @@ public class MatReader {
         return dataLines;
     }
 
+    /**
+     * Checks to see if data contains headers
+     * @param line String of first line of the dataLines array
+     * @return boolean of header content
+     */
     public static boolean containsHeaders(String line) {
         String[] parts = line.split("\t"); // Create a 1D array by splitting the line at the tab
         for (String part : parts) {

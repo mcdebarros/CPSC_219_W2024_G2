@@ -64,7 +64,7 @@ public class Regression {
             write = input.nextLine();
         }
         if (write.equals("Y")) {
-            MatWriter.writeMat(model);
+            MatWriter.writeModel(model);
         }
         System.out.println("Modelling complete!");
     }

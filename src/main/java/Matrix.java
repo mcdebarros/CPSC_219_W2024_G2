@@ -416,5 +416,15 @@ public class Matrix {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+
+        String[] matStr = new String[m];
+        for (int i = 0; i < m; i++) {
+            matStr[i] = Arrays.toString(matrix[i]);
+        }
+        return Arrays.toString(matStr);
+    }
 }
 
