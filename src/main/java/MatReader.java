@@ -64,19 +64,19 @@ public class MatReader {
                 FileReader readData = new FileReader(dataFile); // Initialize the file reader
                 BufferedReader buffedData = new BufferedReader(readData); // Initialize the buffered reader
                 String dataLine = buffedData.readLine(); // Create a string of the first data line
-                int i = 0;
-                while (dataLine != null) {
-                    dataLines.add(i,dataLine);
-                    dataLine = buffedData.readLine();
-                    i++;
+                int i = 0; // Index to append dataLines
+                while (dataLine != null) { // Iterate while line content is not null
+                    dataLines.add(i,dataLine); // Append dataLines with dataLine
+                    dataLine = buffedData.readLine(); // Update dataLine with the next line
+                    i++; // Iterate the index
                 }
             } catch (FileNotFoundException e) {
-                throw new FileNotFoundException("File not found. Check filename & location.");
+                throw new FileNotFoundException("File not found. Check filename & location."); // Terminate if the file is not found at path location
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException(e); // Terminate if buffered reader throws exception
             }
         } else {
-            throw new RuntimeException("Cannot read the datafile. Check contents and location.");
+            throw new RuntimeException("Cannot read the datafile. Check contents and location."); // Terminate if file is not readable
         }
         return dataLines;
     }
