@@ -16,6 +16,12 @@ public class Regression {
     static final String PROMPT_PATH = "Please input your file path: ";
     static final String PROMPT_ORDER = "Please input your model order: ";
 
+    /**
+     * Collects inputs and directs execution of linear LSR
+     * @param args String[] array of input arguments. Not used.
+     * @throws IllegalArgumentException if regression produces non-square zTz matrix
+     * @throws FileNotFoundException if file not found at specified path
+     */
     public static void main(String[] args) throws IllegalArgumentException, FileNotFoundException {
 
         int order;
@@ -69,6 +75,12 @@ public class Regression {
         System.out.println("Modelling complete!");
     }
 
+    /**
+     * Performs linear LSR from data matrix
+     * @param data Matrix object of scattered data
+     * @param order Order of model to fit
+     * @return Object List of model outputs
+     */
     public static List<Object> linear(Matrix data, int order) {
         Matrix z = new Matrix(data.size()[0],order + 1); //Initialize the z array (parameters to multiply resultant coefficients by)
         Matrix y = new Matrix(data.size()[0],1); //Initialize the y vector (actual data)
@@ -117,6 +129,11 @@ public class Regression {
         return model; //Return the model output list
     }
 
+    /**
+     * Checks if order String is an integer
+     * @param orderStr String of model order
+     * @return boolean of integer identity
+     */
     public static boolean isInt(String orderStr) {
 
         int number;
