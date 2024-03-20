@@ -95,37 +95,67 @@ public class Matrix {
         return dim;
     }
 
+    /**
+     * Boolean of square nature of matrix
+     * @return true if square; false if not
+     */
     public boolean isSquare() {
         return square;
     }
+
+    /**
+     * Fetches the double[][] array containing the matrix data
+     * @return matrix double[][]
+     */
     public double[][] getMatrix() { return matrix;}
 
+    /**
+     * Fetches the determinant of the matrix
+     * @return determinant of the matrix (double)
+     */
     public double getDet() {
         return det;
     }
 
+    /**
+     * Fetches the array type, ie, data, vector, etc
+     * @return string of array type
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Fetches the double in the specified entry
+     * @param i m index of the entry
+     * @param j n index of the entry
+     * @return double of (i,j)th entry
+     */
     public double getEntry(int i, int j) {
         return matrix[i][j];
     }
 
+    /**
+     * Sets the specified entry as a double
+     * @param i m index of the entry
+     * @param j n index of the entry
+     * @param entry double to populate the entry
+     */
     public void setEntry(int i, int j, double entry) {
         matrix[i][j] = entry;
         det = determinant(matrix);
         invertible = (det != 0);
     }
 
-    @Override
-    public String toString() {
-        return Arrays.toString(matrix);
-    }
-
+    /**
+     * Inverts square, non-singular matrices
+     * @param a matrix to invert
+     * @return inverted matrix
+     * @throws IllegalArgumentException when matrix is not invertible
+     */
     public static Matrix inverse(Matrix a) throws IllegalArgumentException {
 
-        Matrix clone = new Matrix(a.m,a.n);
+        Matrix clone = new Matrix(a.m,a.n); // Clone the original matrix as the process converts the original to the identity matrix
         for (int i = 0; i < a.m; i++) {
             for (int j = 0; j < a.n; j++) {
                 clone.setEntry(i,j,a.matrix[i][j]);
@@ -177,12 +207,23 @@ public class Matrix {
         return new Matrix(aInv);
     }
 
+    /**
+     * Swap row function for gaussian elimination
+     * @param a array to perform swap on
+     * @param i first row to swap
+     * @param j second row to swap
+     */
     private static void swapRows(double[][] a, int i, int j) {
         double[] temp = a[i]; //Temporarily store a[i]
         a[i] = a[j]; //Assign a[j] to a[i]
         a[j] = temp; //Assign a[i] to a[j]
     }
 
+    /**
+     * Transpose a given array
+     * @param a array to transpose
+     * @return transposed array
+     */
     public static Matrix transpose(Matrix a) {
         Matrix transpose = new Matrix(a.size()[1],a.size()[0]);
         for (int i = 0; i < a.size()[0]; i++) {
@@ -193,6 +234,11 @@ public class Matrix {
         return transpose;
     }
 
+    /**
+     * Calculate the determinant of a square matrix
+     * @param matrix matrix to find determinant
+     * @return double of determinant
+     */
     public static double determinant(double[][] matrix) {
         int size = matrix.length;
         if (size != matrix[0].length) {
@@ -209,6 +255,13 @@ public class Matrix {
         return det;
     }
 
+    /**
+     * Organizes minor matrices for determinant calculations
+     * @param matrix matrix to subdivide
+     * @param row row bound of minor matrix
+     * @param col column bound of minor matrix
+     * @return double[][] array of minor matrix
+     */
     public static double[][] submatrix(double[][] matrix, int row, int col) {
         int size = matrix.length;
         double[][] sub = new double[size - 1][size - 1];
@@ -226,10 +279,24 @@ public class Matrix {
         return sub;
     }
 
+    /**
+     * Cofactor operation for matrix determinant
+     * @param matrix host matrix
+     * @param row row bound
+     * @param col column bound
+     * @return double of cofactor
+     */
     public static double cofactor(double[][] matrix, int row, int col) {
         return Math.pow(-1, row + col) * determinant(submatrix(matrix, row, col));
     }
 
+    /**
+     * Multiplies two matrices; order matters since this operation is not commutative
+     * @param a first matrix to multiply
+     * @param b second matrix to multiply
+     * @return Matrix c, product of a and b
+     * @throws IllegalArgumentException when matrix dimensions are incompatible
+     */
     public static Matrix matMult(Matrix a, Matrix b) throws IllegalArgumentException {
 
         int rowsA = a.size()[0];
@@ -238,7 +305,7 @@ public class Matrix {
         int colsB = b.size()[1];
         double[][] c = new double[rowsA][colsB]; //Initialize output matrix
         if (colsA != rowsB) { //Check that passed matrices have compatible dimensions
-            throw new IllegalArgumentException("Incompatible matrix dimensions for matrix multiplication!");
+            throw new IllegalArgumentException(STR."Incompatible matrix dimensions for matrix multiplication; dimA = \{Arrays.toString(a.size())}, dimB = \{Arrays.toString(b.size())}!");
         } else { //Perform matrix multiplication by the general formula
             for (int i = 0; i < rowsA; i++) {
                 for (int j = 0; j < colsB; j++) {
@@ -253,6 +320,10 @@ public class Matrix {
         return new Matrix(c);
     }
 
+    /**
+     * Determines matrix type
+     * @return matrix type
+     */
     private String type() {
 
         String type;
@@ -270,14 +341,27 @@ public class Matrix {
         return type;
     }
 
-    public double[] getRow(int row) {
+    /**
+     * Fetches specified matrix row (indexing from 1)
+     * @param row row to fetch
+     * @return double[] of row
+     */
+    public double[][] getRow(int row) {
+
+        double[][] returnRow = new double[1][n]
         try {
-            return matrix[row - 1];
+            System.arraycopy(matrix[row], 0, returnRow[0], 0, n);
+            return returnRow;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new ArrayIndexOutOfBoundsException(STR."Row index out of bounds! Indices range from 1 to \{m}");
         }
     }
 
+    /**
+     * Fetches specified matrix column (indexing from 1)
+     * @param col column to fetch
+     * @return double[]
+     */
     public double[][] getCol(int col) {
 
         double[][] column = new double[m][1];
@@ -291,6 +375,9 @@ public class Matrix {
         return column;
     }
 
+    /**
+     * Pseudo toString method, displays the matrix
+     */
     public void showMat() {
 
         String[][] matString = new String[m][n];
@@ -304,6 +391,11 @@ public class Matrix {
         }
     }
 
+    /**
+     * Equality operator for Matrix objects
+     * @param obj object to compare
+     * @return boolean of equality
+     */
     @Override
     public boolean equals(Object obj) {
 
