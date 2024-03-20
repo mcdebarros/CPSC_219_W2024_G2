@@ -348,7 +348,7 @@ public class Matrix {
      */
     public double[][] getRow(int row) {
 
-        double[][] returnRow = new double[1][n]
+        double[][] returnRow = new double[1][n];
         try {
             System.arraycopy(matrix[row], 0, returnRow[0], 0, n);
             return returnRow;
