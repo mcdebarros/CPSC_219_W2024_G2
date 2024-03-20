@@ -9,15 +9,21 @@ import static java.lang.StringTemplate.STR;
 
 public class Matrix {
 
-    private final int[] dim;
-    private final double[][] matrix;
-    private final int m;
-    private final int n;
-    private final boolean square;
-    private final String type;
-    private boolean invertible;
-    private double det;
+    private final int[] dim; // Array of matrix [m,n] dimensions.
+    private final double[][] matrix; // double[][] array containing matrix entries.
+    private final int m; // m dimension of matrix
+    private final int n; // n dimension of matrix.
+    private final boolean square; // Boolean of whether m and n dimensions are equal.
+    private final String type; // Classification of matrix based on dimensionality.
+    private boolean invertible; // Boolean of whether matrix is invertible. Possibly redundant.
+    private double det; // Determinant of square matrix.
 
+    /**
+     * Constructs null matrix object from m and m dimensions.
+     * @param m number of rows
+     * @param n number of columns
+     * @throws ExceptionInInitializerError when initializing 0 space matrix or 1x1 scalar
+     */
     public Matrix(int m, int n) throws ExceptionInInitializerError {
 
         if ((m == 0) && (n == 0)) {
@@ -39,6 +45,10 @@ public class Matrix {
         type = type();
     }
 
+    /**
+     * Constructs matrix object from double[][] array.
+     * @param matrix double[][] array containing matrix
+     */
     public Matrix(double[][] matrix) {
 
         this.matrix = matrix;
@@ -55,7 +65,13 @@ public class Matrix {
         type = type();
     }
 
-    public Matrix(String data) throws RuntimeException, FileNotFoundException {
+    /**
+     * Constructs matrix object from data file.
+     * @param data String of path to datafile.
+     * @throws NumberFormatException when file contains non-decimal entries.
+     * @throws FileNotFoundException when file cannot be found at path destination.
+     */
+    public Matrix(String data) throws NumberFormatException, FileNotFoundException {
 
         matrix = MatReader.getData(data);
         m = matrix.length;
@@ -71,6 +87,10 @@ public class Matrix {
         type = type();
     }
 
+    /**
+     * Arranges the matrix dimensions into an int[] array.
+     * @return int[] array of matrix [m,n] dimensions.
+     */
     public int[] size() {
         return dim;
     }
