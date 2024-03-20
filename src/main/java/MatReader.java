@@ -13,11 +13,11 @@ public class MatReader {
      */
     public static double[][] getData(String fileName) throws NumberFormatException, FileNotFoundException {
 
-        ArrayList<String> dataLines = getStrings(fileName);
-        double[][] dataMatrix;
-        boolean hasHeader = containsHeaders(dataLines.getFirst());
-        if (!hasHeader) {
-            String[] n = (dataLines.getFirst()).split("\t", 0);
+        ArrayList<String> dataLines = getStrings(fileName); // Create and populate an array list where each entry is a string corresponding to a line in the data file
+        double[][] dataMatrix; // Initialize the matrix double
+        boolean hasHeader = containsHeaders(dataLines.getFirst()); //
+        if (!hasHeader) { // Index from 0 if no headers found
+            String[] n = (dataLines.getFirst()).split("\t", 0); // Create a string array where the length defines
             dataMatrix = new double[dataLines.size()][n.length];
             for (int i = 0; i < dataLines.size(); i++) {
                 if (!(dataLines.get(i)).isEmpty()) {
@@ -31,7 +31,7 @@ public class MatReader {
                     }
                 }
             }
-        } else {
+        } else { // Index from 1 if data contains headers
             String[] n = (dataLines.get(1)).split("\t", 0);
             dataMatrix = new double[dataLines.size() - 1][n.length];
             for (int i = 1; i < dataLines.size(); i++) {
