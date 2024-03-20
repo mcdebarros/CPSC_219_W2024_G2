@@ -54,15 +54,9 @@ public class Regression {
         order = Integer.parseInt(orderStr); // Parse the integer from the input string
         Matrix data = new Matrix(path); // Initialize the data matrix object
         List<Object> model = linear(data,order); // Call the linear function to perform regression
-        Matrix a = (Matrix) model.getFirst(); // Fetch and cast the coefficient matrix object
-        double phi = (double) model.get(1); // Fetch and cast the phi double
-        double rsq = (double) model.get(2); // Fetch and cast the rsq double
+
         System.out.println("\nModel generated! Find model data below:\n");
-        for (int i = 0; i < a.size()[0]; i++) {
-            System.out.println(STR."a\{i} = \{a.getEntry(i,0)}"); // Output model coefficients
-        }
-        System.out.println(STR."\nphi = \{phi}"); // Output phi
-        System.out.println(STR."rsq = \{rsq}"); // Output rsq
+        printResults(model);
         System.out.println("\n\nWould you like to write it to a file? (Y/N)"); // Prompt for file writing and collect selection
         String write = input.nextLine().toUpperCase();
         while (!((write.equals("Y")) || write.equals("N"))) { // Loop while not yes or no
@@ -144,5 +138,31 @@ public class Regression {
         } catch (NumberFormatException e) {
             return false; // False if unsuccessful
         }
+    }
+    public static void printResults(List<Object> input) {
+        String TOP_BORDER = "╔═══RESULTS═══╗";
+        String MID_BORDER = "╠═════════════╣";
+        String BOTTOM_BORDER = "╚═════════════╝";
+
+        Matrix a = (Matrix) input.getFirst(); // Fetch and cast the coefficient matrix object
+        double phi = (double) input.get(1); // Fetch and cast the phi double
+        double rsq = (double) input.get(2); // Fetch and cast the rsq double
+        double rsqNew = Math.floor(rsq*1000000)/1000000;
+
+        System.out.println(TOP_BORDER); //Forms the border top.
+        for (int i = 0; i < a.size()[0]; i++) {
+            if (a.getEntry(i,0) >=0) {
+                System.out.printf("║ A%.1f: %.1f   ║\n",(float) i, a.getEntry(i,0));
+            } else System.out.printf("║ A%.1f: %.1f  ║\n",(float) i, a.getEntry(i,0));
+        }
+
+        System.out.println(STR."\{MID_BORDER}\n║     PHI     ║");
+        System.out.printf("║   %.2e  ║\n",phi);
+
+        System.out.println(STR."\{MID_BORDER}\n║     RSQ     ║");
+        System.out.printf("║   %.5f   ║\n",rsqNew);
+
+        System.out.println(BOTTOM_BORDER);
+
     }
 }
