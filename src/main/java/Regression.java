@@ -1,6 +1,6 @@
+// Import packages
 import java.util.*;
 import java.io.*;
-
 import static java.lang.StringTemplate.STR;
 
 public class Regression {
@@ -24,25 +24,25 @@ public class Regression {
      */
     public static void main(String[] args) throws IllegalArgumentException, FileNotFoundException {
 
-        int order;
-        String orderStr;
-        String path;
-        Scanner input = new Scanner(System.in);
-        System.out.println(INTRO);
+        int order; // Initialize order integer
+        String orderStr; // Initialize order string
+        String path; // Initialize filepath string
+        Scanner input = new Scanner(System.in); // Initialize input scanner
+        System.out.println(INTRO); // Print introduction and use instructions, then prompt for file path
         System.out.println(HELP);
         System.out.println(PROMPT_PATH);
         path = input.nextLine().toUpperCase();
         while (path.equals("HELP")) {
-            System.out.println(HELP);
+            System.out.println(HELP); // Show the help message and recollect input as long as the user inputs 'help'
             path = input.nextLine().toUpperCase();
         }
-        System.out.println(PROMPT_ORDER);
+        System.out.println(PROMPT_ORDER); // Prompt for and collect order string
         orderStr = input.nextLine();
         while (orderStr.equals("HELP")) {
             System.out.println(HELP);
             orderStr = input.nextLine().toUpperCase();
         }
-        while (!isInt(orderStr)) {
+        while (!isInt(orderStr)) { // Iterate this loop until an integer order is received
             if (orderStr.equals(HELP)) {
                 System.out.println(HELP);
                 orderStr = input.nextLine().toUpperCase();
@@ -51,25 +51,25 @@ public class Regression {
                 orderStr = input.nextLine();
             }
         }
-        order = Integer.parseInt(orderStr);
-        Matrix data = new Matrix(path);
-        List<Object> model = linear(data,order);
-        Matrix a = (Matrix) model.getFirst();
-        double phi = (double) model.get(1);
-        double rsq = (double) model.get(2);
-        System.out.println("Model generated! Find model data below:\n");
+        order = Integer.parseInt(orderStr); // Parse the integer from the input string
+        Matrix data = new Matrix(path); // Initialize the data matrix object
+        List<Object> model = linear(data,order); // Call the linear function to perform regression
+        Matrix a = (Matrix) model.getFirst(); // Fetch and cast the coefficient matrix object
+        double phi = (double) model.get(1); // Fetch and cast the phi double
+        double rsq = (double) model.get(2); // Fetch and cast the rsq double
+        System.out.println("Model generated! Find model data below:\n\n");
         for (int i = 0; i < a.size()[0]; i++) {
-            System.out.println(STR."a\{i} = \{a.getEntry(i,0)}");
+            System.out.println(STR."a\{i} = \{a.getEntry(i,0)}"); // Output model coefficients
         }
-        System.out.println(STR."\nphi = \{phi}");
-        System.out.println(STR."rsq = \{rsq}");
-        System.out.println("\nWould you like to write it to a file? (Y/N)");
+        System.out.println(STR."\n\nphi = \{phi}"); // Output phi
+        System.out.println(STR."\nrsq = \{rsq}"); // Output rsq
+        System.out.println("\n\nWould you like to write it to a file? (Y/N)"); // Prompt for file writing and collect selection
         String write = input.nextLine().toUpperCase();
-        while (!((write.equals("Y")) || write.equals("N"))) {
+        while (!((write.equals("Y")) || write.equals("N"))) { // Loop while not yes or no
             System.out.println("I didn't understand your selection. Please choose one of (Y/N).");
             write = input.nextLine();
         }
-        if (write.equals("Y")) {
+        if (write.equals("Y")) { // Call the file writer if input is yes
             MatWriter.writeModel(model);
         }
         System.out.println("Modelling complete!");
@@ -138,10 +138,10 @@ public class Regression {
 
         int number;
         try {
-            number = Integer.parseInt(orderStr);
-            return true;
+            number = Integer.parseInt(orderStr); // Attempt to parse int from order string
+            return true; // True if successful
         } catch (NumberFormatException e) {
-            return false;
+            return false; // False if unsuccessful
         }
     }
 }
