@@ -17,21 +17,6 @@ public class Matrix {
     private final String type; // Classification of matrix based on dimensionality.
     private boolean invertible; // Boolean of whether matrix is invertible. Possibly redundant.
     private double det; // Determinant of square matrix.
-    static String TLC = "╔";
-    String BLC = "╚";
-    String TRC = "╗";
-    String BRC = "╝";
-    String UT = "╩";
-    String DT = "╦";
-    String LT = "╠";
-    String RT = "╣";
-    String VERT = "║";
-    String MLT = "╠";
-    String MRT = "╣";
-    String CRX = "╬";
-    static String HORI = "═════";
-    String tstPOS = "-1.06";
-    String tstNEG = "1.06";
 
     /**
      * Constructs null matrix object from m and m dimensions.
@@ -399,25 +384,36 @@ public class Matrix {
      */
     public void showMat() {
 
+        String TLC = "╔";
         StringBuilder topBar = new StringBuilder(TLC);
+        String BLC = "╚";
         StringBuilder botBar = new StringBuilder(BLC);
+        String LT = "╠";
         StringBuilder midBar = new StringBuilder(LT);
         StringBuilder fancyMat = new StringBuilder();
         for (int i = 0; i < m; i++) {
 
+            String HORI = "═════";
             if (i < m - 1) {
+                String DT = "╦";
                 topBar.append(HORI).append(DT);
+                String UT = "╩";
                 botBar.append(HORI).append(UT);
+                String CRX = "╬";
                 midBar.append(HORI).append(CRX);
             } else {
+                String TRC = "╗";
                 topBar.append(HORI).append(TRC);
+                String BRC = "╝";
                 botBar.append(HORI).append(BRC);
+                String RT = "╣";
                 midBar.append(HORI).append(STR."\{RT}\n");
             }
         }
         fancyMat.append(STR."\{topBar.toString()}\n");
         for (int i = 0; i < m; i++) {
             StringBuilder thisRow = new StringBuilder();
+            String VERT = "║";
             for (int j = 0; j < n; j++) {
                 if (matrix[i][j] < 0) {
                     thisRow.append(VERT).append(String.format("%,.1f ", matrix[i][j]));
