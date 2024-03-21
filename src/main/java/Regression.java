@@ -154,10 +154,10 @@ public class Regression {
         System.out.println(TOP_BORDER); //Forms the border top.
         for (int i = 0; i < a.size()[0]; i++) {
             if (a.getEntry(i,0) >=0) {
-                System.out.printf(STR."\{redColor}║\{resetColor} A%.1f: %.1f   \{redColor}║\{resetColor}\n", (float) i, a.getEntry(i, 0));
+                System.out.printf(STR."\{redColor}║\{resetColor} A%.1s: %.1f     \{redColor}║\{resetColor}\n", (float) i, a.getEntry(i, 0));
             }
             else {
-                System.out.printf(STR."\{redColor}║\{resetColor} A%.1f: %.1f  \{redColor}║\{resetColor}\n", (float) i, a.getEntry(i, 0));            }
+                System.out.printf(STR."\{redColor}║\{resetColor} A%.1s: %.1f    \{redColor}║\{resetColor}\n", (float) i, a.getEntry(i, 0));            }
         }
 
         System.out.println(MID_BORDER);
