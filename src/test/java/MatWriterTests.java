@@ -20,7 +20,7 @@ public class MatWriterTests {
     }
 
     @Test
-    void test_writeMatrix() { // Testing to see if the MatWriter() class can
+    void test_writeMat() { // Testing to see if the MatWriter() class can write a sample matrix to a file
         //Arrange
         Matrix matrixA = new Matrix(new double[][] {{10, 20}, {30, 40}});
         //Act

@@ -297,5 +297,61 @@ public class MatrixTests {
         assertArrayEquals(expectedSubMatrix, submatrixA);
     }
 
+    @Test
+    void test_getRow() { //Getting all rows from a sample matrix
+        //Arrange
+        double[][] matrixA = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        Matrix matrix = new Matrix(matrixA);
+        //Act
+        double[][] expected1stRow = {{1, 2, 3}};
+        double[][] expected2ndRow = {{4, 5, 6}};
+        double[][] expected3rdRow = {{7, 8, 9}};
+        //Assert
+        assertArrayEquals(expected1stRow, matrix.getRow(0));
+        assertArrayEquals(expected2ndRow, matrix.getRow(1));
+        assertArrayEquals(expected3rdRow, matrix.getRow(2));
+    }
 
+    @Test
+    void test_getOOBRow() { //Getting an out-of-bounds row from a sample matrix
+        //Arrange
+        double[][] matrixA = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        Matrix matrix = new Matrix(matrixA);
+        //Act & Assert
+        try {
+            matrix.getRow(3); //Attempt to get the non-existent 4th row of the above sample matrix
+            fail("Expected ArrayIndexOutOfBoundsException was not thrown");
+        }
+        catch (ArrayIndexOutOfBoundsException _) {
+        }
+    }
+
+    @Test
+    void test_getCol() { //Getting all columns from a sample matrix
+        //Arrange
+        double[][] matrixA = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        Matrix matrix = new Matrix(matrixA);
+        //Act
+        double[][] expected1stColumn = {{1}, {4}, {7}};
+        double[][] expected2ndColumn = {{2}, {5}, {8}};
+        double[][] expected3rdColumn = {{3}, {6}, {9}};
+        //Assert
+        assertArrayEquals(expected1stColumn, matrix.getCol(1));
+        assertArrayEquals(expected2ndColumn, matrix.getCol(2));
+        assertArrayEquals(expected3rdColumn, matrix.getCol(3));
+    }
+
+    @Test
+    void test_getOOBCol() { //Getting an out-of-bounds column from a sample matrix
+        //Arrange
+        double[][] matrixA = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        Matrix matrix = new Matrix(matrixA);
+        //Act & Assert
+        try {
+            matrix.getRow(3); //Attempt to get the non-existent 4th row of the above sample matrix
+            fail("Expected ArrayIndexOutOfBoundsException was not thrown");
+        }
+        catch (ArrayIndexOutOfBoundsException _) {
+        }
+    }
 }
