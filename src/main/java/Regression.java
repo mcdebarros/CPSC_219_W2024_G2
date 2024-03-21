@@ -140,9 +140,11 @@ public class Regression {
         }
     }
     public static void printResults(List<Object> input) {
-        String TOP_BORDER = "╔═══RESULTS═══╗";
-        String MID_BORDER = "╠═════════════╣";
-        String BOTTOM_BORDER = "╚═════════════╝";
+        String redColor = "\u001B[31m";
+        String resetColor = "\u001B[0m";
+        String TOP_BORDER = STR."\{redColor}╔═══RESULTS═══╗\{resetColor}";
+        String MID_BORDER = STR."\{redColor}╠═════════════╣\{resetColor}";
+        String BOTTOM_BORDER = STR."\{redColor}╚═════════════╝\{resetColor}";
 
         Matrix a = (Matrix) input.getFirst(); // Fetch and cast the coefficient matrix object
         double phi = (double) input.get(1); // Fetch and cast the phi double
@@ -152,17 +154,22 @@ public class Regression {
         System.out.println(TOP_BORDER); //Forms the border top.
         for (int i = 0; i < a.size()[0]; i++) {
             if (a.getEntry(i,0) >=0) {
-                System.out.printf("║ A%.1f: %.1f   ║\n",(float) i, a.getEntry(i,0));
-            } else System.out.printf("║ A%.1f: %.1f  ║\n",(float) i, a.getEntry(i,0));
+                System.out.printf(STR."\{redColor}║\{resetColor} A%.1f: %.1f   \{redColor}║\{resetColor}\n", (float) i, a.getEntry(i, 0));
+            }
+            else {
+                System.out.printf(STR."\{redColor}║\{resetColor} A%.1f: %.1f  \{redColor}║\{resetColor}\n", (float) i, a.getEntry(i, 0));            }
         }
 
-        System.out.println(STR."\{MID_BORDER}\n║     PHI     ║");
-        System.out.printf("║   %.2e  ║\n",phi);
+        System.out.println(MID_BORDER);
 
-        System.out.println(STR."\{MID_BORDER}\n║     RSQ     ║");
-        System.out.printf("║   %.5f   ║\n",rsqNew);
+        System.out.println(STR."\{redColor}║\{resetColor}     PHI     \{redColor}║\{resetColor}");
+        System.out.printf(STR."\{redColor}║\{resetColor}   %.2e  \{redColor}║\{resetColor}\n", phi);
+
+        System.out.println(MID_BORDER);
+
+        System.out.println(STR."\{redColor}║\{resetColor}     RSQ     \{redColor}║\{resetColor}");
+        System.out.printf(STR."\{redColor}║\{resetColor}   %.5f   \{redColor}║\{resetColor}\n", rsqNew);
 
         System.out.println(BOTTOM_BORDER);
-
     }
 }
