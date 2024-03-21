@@ -163,7 +163,7 @@ public class Regression {
         System.out.println(MID_BORDER);
 
         System.out.println(STR."\{redColor}║\{resetColor}     PHI     \{redColor}║\{resetColor}");
-        System.out.printf(STR."\{redColor}║\{resetColor}   %.2e  \{redColor}║\{resetColor}\n", phi);
+        System.out.printf(STR."\{redColor}║\{resetColor}  %.2e   \{redColor}║\{resetColor}\n", phi);
 
         System.out.println(MID_BORDER);
 
