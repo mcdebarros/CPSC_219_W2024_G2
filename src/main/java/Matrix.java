@@ -379,16 +379,31 @@ public class Matrix {
         return column;
     }
 
+    public void showMat() {
+
+        String[][] matString = new String[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                matString[i][j] = String.format("%.2f",matrix[i][j]);
+            }
+        }
+        for (String[] row : matString) {
+            System.out.println(Arrays.toString(row));
+        }
+    }
+
     /**
      * Pseudo toString method, displays the matrix in console
      */
-    public void showMat() {
+    public void showFancyMat() {
 
         String TLC = "╔";
         StringBuilder topBar = new StringBuilder(TLC);
         String BLC = "╚";
         StringBuilder botBar = new StringBuilder(BLC);
         String LT = "╠";
+        String VERT = "║";
+        StringBuilder BAR = new StringBuilder();
         StringBuilder midBar = new StringBuilder(LT);
         StringBuilder fancyMat = new StringBuilder();
         for (int i = 0; i < m; i++) {
@@ -410,10 +425,9 @@ public class Matrix {
                 midBar.append(HORI).append(STR."\{RT}\n");
             }
         }
-        fancyMat.append(STR."\{topBar.toString()}\n");
+        fancyMat.append(STR."\{topBar}\n");
         for (int i = 0; i < m; i++) {
             StringBuilder thisRow = new StringBuilder();
-            String VERT = "║";
             for (int j = 0; j < n; j++) {
                 if (matrix[i][j] < 0) {
                     thisRow.append(VERT).append(String.format("%,.1f ", matrix[i][j]));
