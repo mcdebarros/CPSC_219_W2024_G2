@@ -17,6 +17,21 @@ public class Matrix {
     private final String type; // Classification of matrix based on dimensionality.
     private boolean invertible; // Boolean of whether matrix is invertible. Possibly redundant.
     private double det; // Determinant of square matrix.
+    static String TLC = "╔";
+    String BLC = "╚";
+    String TRC = "╗";
+    String BRC = "╝";
+    String UT = "╩";
+    String DT = "╦";
+    String LT = "╠";
+    String RT = "╣";
+    String VERT = "║";
+    String MLT = "╠";
+    String MRT = "╣";
+    String CRX = "╬";
+    static String HORI = "═════";
+    String tstPOS = "-1.06";
+    String tstNEG = "1.06";
 
     /**
      * Constructs null matrix object from m and m dimensions.
@@ -384,15 +399,40 @@ public class Matrix {
      */
     public void showMat() {
 
-        String[][] matString = new String[m][n];
+        StringBuilder topBar = new StringBuilder(TLC);
+        StringBuilder botBar = new StringBuilder(BLC);
+        StringBuilder midBar = new StringBuilder(LT);
+        StringBuilder fancyMat = new StringBuilder();
         for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                matString[i][j] = String.format("%.2f",matrix[i][j]);
+
+            if (i < m - 1) {
+                topBar.append(HORI).append(DT);
+                botBar.append(HORI).append(UT);
+                midBar.append(HORI).append(CRX);
+            } else {
+                topBar.append(HORI).append(TRC);
+                botBar.append(HORI).append(BRC);
+                midBar.append(HORI).append(STR."\{RT}\n");
             }
         }
-        for (String[] row : matString) {
-            System.out.println(Arrays.toString(row));
+        fancyMat.append(STR."\{topBar.toString()}\n");
+        for (int i = 0; i < m; i++) {
+            StringBuilder thisRow = new StringBuilder();
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] < 0) {
+                    thisRow.append(VERT).append(String.format("%,.1f ", matrix[i][j]));
+                } else {
+                    thisRow.append(VERT).append(String.format(" %,.1f ", matrix[i][j]));
+                }
+            }
+            thisRow.append(STR."\{VERT}\n");
+            fancyMat.append(thisRow);
+            if (i < m - 1) {
+                fancyMat.append(midBar);
+            }
         }
+        fancyMat.append(botBar);
+        System.out.println(fancyMat);
     }
 
     /**
