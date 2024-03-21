@@ -157,7 +157,7 @@ public class Regression {
                 System.out.printf(STR."\{redColor}║\{resetColor} A%.1s: %.1f     \{redColor}║\{resetColor}\n", (float) i, a.getEntry(i, 0));
             }
             else {
-                System.out.printf(STR."\{redColor}║\{resetColor} A%.1s: %.1f    \{redColor}║\{resetColor}\n", (float) i, a.getEntry(i, 0));            }
+                System.out.printf(STR."\{redColor}║\{resetColor} A%.1s:%.1f     \{redColor}║\{resetColor}\n", (float) i, a.getEntry(i, 0));            }
         }
 
         System.out.println(MID_BORDER);
