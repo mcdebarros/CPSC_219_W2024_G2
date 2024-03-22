@@ -265,6 +265,17 @@ public class MatrixTests {
     }
 
     @Test
+    void test_swapRows4() { // Swapping rows of a 3x3 matrix
+        //Arrange
+        double[][] matrixA = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        //Act
+        Matrix.swapRows(matrixA,0,2); //* j is equal to 2 in this case because we are swapping the 3rd row (index = 2), not the 2nd row (index = 2)
+        //Assert
+        double[][] expectedMatrix = {{7, 8, 9}, {4, 5, 6}, {1, 2, 3}};
+        assertArrayEquals(expectedMatrix, matrixA);
+    }
+
+    @Test
     void test_subMatrix1() { //Getting a submatrix from a 3x3 matrix
         //Arrange
         double[][] matrixA = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
