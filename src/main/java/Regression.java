@@ -131,8 +131,9 @@ public class Regression {
      */
     public static boolean isInt(String orderStr) {
 
+        int number;
         try {
-            Integer.parseInt(orderStr); // Attempt to parse int from order string
+            number = Integer.parseInt(orderStr); // Attempt to parse int from order string
             return true; // True if successful
         } catch (NumberFormatException e) {
             return false; // False if unsuccessful
@@ -144,31 +145,68 @@ public class Regression {
         String TOP_BORDER = STR."\{redColor}╔═══RESULTS═══╗\{resetColor}";
         String MID_BORDER = STR."\{redColor}╠═════════════╣\{resetColor}";
         String BOTTOM_BORDER = STR."\{redColor}╚═════════════╝\{resetColor}";
+        String alphaStart;
+        int borderLength = TOP_BORDER.length();
 
         Matrix a = (Matrix) input.getFirst(); // Fetch and cast the coefficient matrix object
         double phi = (double) input.get(1); // Fetch and cast the phi double
         double rsq = (double) input.get(2); // Fetch and cast the rsq double
-        double rsqNew = Math.floor(rsq*1000000)/1000000;
 
         System.out.println(TOP_BORDER); //Forms the border top.
         for (int i = 0; i < a.size()[0]; i++) {
-            if (a.getEntry(i,0) >=0) {
-                System.out.printf(STR."\{redColor}║\{resetColor} A%.1s: %2.1e \{redColor}║\{resetColor}\n", (float) i, a.getEntry(i, 0));
-            }
-            else {
-                System.out.printf(STR."\{redColor}║\{resetColor} A%.1s:%2.1e \{redColor}║\{resetColor}\n", (float) i, a.getEntry(i, 0));            }
+            alphaStart = STR."\{redColor}║\{resetColor} A\{i}: ";
+            System.out.println(autoSpacer(alphaStart,a.getEntry(i,0),borderLength,2));
         }
 
         System.out.println(MID_BORDER);
 
         System.out.println(STR."\{redColor}║\{resetColor}     PHI     \{redColor}║\{resetColor}");
         System.out.printf(STR."\{redColor}║\{resetColor}  %.2e   \{redColor}║\{resetColor}\n", phi);
-
         System.out.println(MID_BORDER);
 
         System.out.println(STR."\{redColor}║\{resetColor}     RSQ     \{redColor}║\{resetColor}");
-        System.out.printf(STR."\{redColor}║\{resetColor}   %.5f   \{redColor}║\{resetColor}\n", rsqNew);
+        System.out.println(autoSpacer("DEFAULT",rsq,borderLength,3));
 
         System.out.println(BOTTOM_BORDER);
+    }
+    public static String autoSpacer(String start, double input, int width, int round) {
+        //Initialization
+        double inputRounded = Math.floor(input*(Math.pow(10,round)))/(Math.pow(10,round));
+        String redColor = "\u001B[31m";
+        String resetColor = "\u001B[0m";
+        StringBuilder sb = new StringBuilder();
+        String WALL = STR."\{redColor}║\{resetColor}";
+        String SPACE = " ";
+        String DEFAULT = STR."\{WALL}    ";
+        int freeSpaces;
+        //Calculates the amount of necessary spaces...
+        int inputLength = String.valueOf(inputRounded).length();
+        if (start.equals("DEFAULT")) {
+            freeSpaces = (width - DEFAULT.length() - 1) - inputLength;
+        } else {
+            freeSpaces = (width - start.length() - 1) - inputLength;
+        }
+        //Build the string.
+        if (start.equals("DEFAULT")) {
+            if (freeSpaces % 2 == 0) {
+                sb.append(DEFAULT);
+                sb.append(inputRounded);
+                sb.append(SPACE.repeat(freeSpaces));
+            } else {
+                sb.append(DEFAULT);
+                sb.append(inputRounded);
+                sb.append(SPACE.repeat(freeSpaces));
+            }
+        } else {
+            sb.append(start);
+            sb.append(inputRounded);
+            sb.append(SPACE.repeat(freeSpaces));
+        }
+
+
+        sb.append(WALL);
+
+        //Assign it to an output, and return it.
+        return sb.toString();
     }
 }
