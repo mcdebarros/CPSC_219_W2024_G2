@@ -7,7 +7,6 @@ public class MatrixOperatorsDemo {
         String yellowColor = "\u001B[33;1m";
         String resetColor = "\u001B[0m";
 
-
         System.out.print("""
                 \nThis demo is here to show the matrix operations in action!
                 \n""");
