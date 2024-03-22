@@ -18,14 +18,14 @@ public class MatrixOperatorsDemo {
 
         System.out.println(STR."\{yellowColor}Important Info:\{yellowColor}");
         System.out.println(STR."\{blueColor}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\{resetColor}");
-        System.out.println(STR."\{blueColor}|\{resetColor}  Determinant\t|\t [Length, Width] \t|\tSquare Matrix?\t|\t\tType?\t\t\{blueColor}|\{resetColor}");
-        System.out.println(STR."\{blueColor}|\{resetColor}---------------|-----------------------|-------------------|-------------------\{blueColor}|\{resetColor}");
+        System.out.println(STR."\{blueColor}|\{resetColor}  Determinant\t\{blueColor}|\{resetColor}\t [Length, Width] \t\{blueColor}|\{resetColor}\tSquare Matrix?\t\{blueColor}|\{resetColor}\t\tType?\t\t\{blueColor}|\{resetColor}");
+        System.out.println(STR."\{blueColor}|---------------|-----------------------|-------------------|-------------------|\{resetColor}");
         System.out.print(STR."\{blueColor}|\{resetColor}\t  \{data.getDet()}\t\t");
-        System.out.print(STR."|\t\t \{Arrays.toString(data.size())}\t\t\t");
+        System.out.print(STR."\{blueColor}|\{resetColor}\t\t \{Arrays.toString(data.size())}\t\t\t");
         if (data.isSquare()) {
-            System.out.print("|\t\tTrue\t\t|");
+            System.out.print(STR."\{blueColor}|\{resetColor}\t\tTrue\t\t\{blueColor}|\{resetColor}");
         } else {
-            System.out.print("|\t\t  False\t\t\t|");
+            System.out.print(STR."\{blueColor}|\{resetColor}\t\t  False\t\t\t\{blueColor}|\{resetColor}");
         }
         System.out.println(STR."\t\t\{data.getType()}\t\t\{blueColor}|\{resetColor}");
         System.out.println(STR."\{blueColor}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\{resetColor}");
