@@ -55,7 +55,7 @@ public class MatrixTests {
 
     @Test
     void test_isSquare() throws FileNotFoundException {
-        //Assert
+        //Arrange
         String dataFile = "src/main/java/data.txt";
         Matrix testMat = new Matrix(dataFile);
         //Act
@@ -233,7 +233,7 @@ public class MatrixTests {
 
     @Test
     void test_swapRows1() { // Swapping rows of a 2x2 matrix
-        //Assert
+        //Arrange
         double[][] matrixA = {{1, 2}, {3, 4}};
         //Act
         Matrix.swapRows(matrixA,0,1);
@@ -244,7 +244,7 @@ public class MatrixTests {
 
     @Test
     void test_swapRows2() { // Swapping rows of a 3x2 matrix
-        //Assert
+        //Arrange
         double[][] matrixA = {{1, 2}, {3, 4}, {5, 6}};
         //Act
         Matrix.swapRows(matrixA,0,2); //* j is equal to 2 in this case because we are swapping the 3rd row (index = 2), not the 2nd row (index = 2)
@@ -255,7 +255,7 @@ public class MatrixTests {
 
     @Test
     void test_swapRows3() { // Swapping rows of a 2x2 matrix
-        //Assert
+        //Arrange
         double[][] matrixA = {{1, 2}, {3, 4}, {5, 6}, {7, 8}};
         //Act
         Matrix.swapRows(matrixA,0,3);
@@ -266,7 +266,7 @@ public class MatrixTests {
 
     @Test
     void test_subMatrix1() { //Getting a submatrix from a 3x3 matrix
-        //Assert
+        //Arrange
         double[][] matrixA = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         //Act
         double[][] submatrixA = Matrix.submatrix(matrixA, 0, 0);
@@ -277,7 +277,7 @@ public class MatrixTests {
 
     @Test
     void test_subMatrix2() { //Getting a different submatrix from a 3x3 matrix
-        //Assert
+        //Arrange
         double[][] matrixA = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         //Act
         double[][] submatrixA = Matrix.submatrix(matrixA, 2, 2);
@@ -288,7 +288,7 @@ public class MatrixTests {
 
     @Test
     void test_subMatrix3() { //Getting a different submatrix from a 3x3 matrix
-        //Assert
+        //Arrange
         double[][] matrixA = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         //Act
         double[][] submatrixA = Matrix.submatrix(matrixA, 1, 2);
