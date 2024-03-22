@@ -131,9 +131,8 @@ public class Regression {
      */
     public static boolean isInt(String orderStr) {
 
-        int number;
         try {
-            number = Integer.parseInt(orderStr); // Attempt to parse int from order string
+            Integer.parseInt(orderStr); // Attempt to parse int from order string
             return true; // True if successful
         } catch (NumberFormatException e) {
             return false; // False if unsuccessful
@@ -154,10 +153,10 @@ public class Regression {
         System.out.println(TOP_BORDER); //Forms the border top.
         for (int i = 0; i < a.size()[0]; i++) {
             if (a.getEntry(i,0) >=0) {
-                System.out.printf(STR."\{redColor}║\{resetColor} A%.1s: %.1f     \{redColor}║\{resetColor}\n", (float) i, a.getEntry(i, 0));
+                System.out.printf(STR."\{redColor}║\{resetColor} A%.1s: %2.1e \{redColor}║\{resetColor}\n", (float) i, a.getEntry(i, 0));
             }
             else {
-                System.out.printf(STR."\{redColor}║\{resetColor} A%.1s:%.1f     \{redColor}║\{resetColor}\n", (float) i, a.getEntry(i, 0));            }
+                System.out.printf(STR."\{redColor}║\{resetColor} A%.1s:%2.1e \{redColor}║\{resetColor}\n", (float) i, a.getEntry(i, 0));            }
         }
 
         System.out.println(MID_BORDER);

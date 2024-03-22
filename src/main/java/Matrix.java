@@ -73,7 +73,7 @@ public class Matrix {
      */
     public Matrix(String data) throws NumberFormatException, FileNotFoundException {
 
-        matrix = MatReader.getData(data); // Call the matReader function yo construct the matrix array
+        matrix = MatReader.getData(data); // Call the matReader function to construct the matrix array
         m = matrix.length;
         n = matrix[0].length;
         dim = new int[]{m,n};
@@ -387,14 +387,13 @@ public class Matrix {
         String redColor = "\u001B[34m";
         String resetColor = "\u001B[0m";
         String TLC = STR."\{redColor}╔";
-        StringBuilder topBar = new StringBuilder(TLC);
         String BLC = STR."\{redColor}╚";
         StringBuilder botBar = new StringBuilder(BLC);
         String LT = STR."\{redColor}╠";
         String VERT = STR."\{redColor}║\{resetColor}";
-        StringBuilder BAR = new StringBuilder();
         StringBuilder midBar = new StringBuilder(LT);
         StringBuilder fancyMat = new StringBuilder();
+        StringBuilder topBar = new StringBuilder(TLC);
         for (int i = 0; i < m; i++) {
 
             String HORI = "═════════";
@@ -414,7 +413,8 @@ public class Matrix {
                 midBar.append(HORI).append(STR."\{RT}\n");
             }
         }
-        fancyMat.append(STR."\{topBar}\n");
+        fancyMat.append(topBar);
+        fancyMat.append("\n");
         for (int i = 0; i < m; i++) {
             StringBuilder thisRow = new StringBuilder();
             for (int j = 0; j < n; j++) {
@@ -458,7 +458,7 @@ public class Matrix {
                 if ((this.m == other.m)) { // Check if arrays are of same dimensions
                     for (int i = 0; i < this.m; i++) {
                         for (int j = 0; j < this.n; j++) {
-                            if ((double) this.matrix[m][n] != (double) other.matrix[m][n]) { // Check if matrix entries are identical
+                            if (this.matrix[m][n] != other.matrix[m][n]) { // Check if matrix entries are identical
                                 return false;
                             }
                         }
