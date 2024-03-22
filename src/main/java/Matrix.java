@@ -379,36 +379,25 @@ public class Matrix {
         return column;
     }
 
-    public void showMat() {
-
-        String[][] matString = new String[m][n];
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                matString[i][j] = String.format("%.2f",matrix[i][j]);
-            }
-        }
-        for (String[] row : matString) {
-            System.out.println(Arrays.toString(row));
-        }
-    }
-
     /**
      * Pseudo toString method, displays the matrix in console
      */
-    public void showFancyMat() {
+    public void showMat() {
 
-        String TLC = "╔";
+        String redColor = "\u001B[34m";
+        String resetColor = "\u001B[0m";
+        String TLC = STR."\{redColor}╔";
         StringBuilder topBar = new StringBuilder(TLC);
-        String BLC = "╚";
+        String BLC = STR."\{redColor}╚";
         StringBuilder botBar = new StringBuilder(BLC);
-        String LT = "╠";
-        String VERT = "║";
+        String LT = STR."\{redColor}╠";
+        String VERT = STR."\{redColor}║\{resetColor}";
         StringBuilder BAR = new StringBuilder();
         StringBuilder midBar = new StringBuilder(LT);
         StringBuilder fancyMat = new StringBuilder();
         for (int i = 0; i < m; i++) {
 
-            String HORI = "═════";
+            String HORI = "═════════";
             if (i < m - 1) {
                 String DT = "╦";
                 topBar.append(HORI).append(DT);
@@ -417,11 +406,11 @@ public class Matrix {
                 String CRX = "╬";
                 midBar.append(HORI).append(CRX);
             } else {
-                String TRC = "╗";
+                String TRC = STR."╗\{resetColor}";
                 topBar.append(HORI).append(TRC);
-                String BRC = "╝";
+                String BRC = STR."╝\{resetColor}";
                 botBar.append(HORI).append(BRC);
-                String RT = "╣";
+                String RT = STR."╣\{resetColor}";
                 midBar.append(HORI).append(STR."\{RT}\n");
             }
         }
@@ -429,10 +418,17 @@ public class Matrix {
         for (int i = 0; i < m; i++) {
             StringBuilder thisRow = new StringBuilder();
             for (int j = 0; j < n; j++) {
-                if (matrix[i][j] < 0) {
-                    thisRow.append(VERT).append(String.format("%,.1f ", matrix[i][j]));
+                double entry;
+                double zero = 0.0;
+                if (((matrix[i][j] < 1.0e-10) && (matrix[i][j] > 0)) || ((matrix[i][j] > -1.0e-10) && (matrix[i][j] < 0))) {
+                    entry = zero;
                 } else {
-                    thisRow.append(VERT).append(String.format(" %,.1f ", matrix[i][j]));
+                    entry = matrix[i][j];
+                }
+                if (entry < 0) {
+                    thisRow.append(VERT).append(String.format("%2.1e ", entry));
+                } else {
+                    thisRow.append(VERT).append(String.format(" %2.1e ", entry));
                 }
             }
             thisRow.append(STR."\{VERT}\n");
