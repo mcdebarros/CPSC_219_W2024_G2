@@ -384,13 +384,13 @@ public class Matrix {
      */
     public void showMat() {
 
-        String redColor = "\u001B[34m";
+        String blueColor = "\u001B[34m";
         String resetColor = "\u001B[0m";
-        String TLC = STR."\{redColor}╔";
-        String BLC = STR."\{redColor}╚";
+        String TLC = STR."\{blueColor}╔";
+        String BLC = STR."\{blueColor}╚";
         StringBuilder botBar = new StringBuilder(BLC);
-        String LT = STR."\{redColor}╠";
-        String VERT = STR."\{redColor}║\{resetColor}";
+        String LT = STR."\{blueColor}╠";
+        String VERT = STR."\{blueColor}║\{resetColor}";
         StringBuilder midBar = new StringBuilder(LT);
         StringBuilder fancyMat = new StringBuilder();
         StringBuilder topBar = new StringBuilder(TLC);
