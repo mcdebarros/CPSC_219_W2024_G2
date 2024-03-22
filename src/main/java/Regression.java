@@ -75,7 +75,7 @@ public class Regression {
      * @param order Order of model to fit
      * @return Object List of model outputs
      */
-    public static List<Object> linear(Matrix data, int order) {
+    private static List<Object> linear(Matrix data, int order) {
         Matrix z = new Matrix(data.size()[0],order + 1); //Initialize the z array (parameters to multiply resultant coefficients by)
         Matrix y = new Matrix(data.size()[0],1); //Initialize the y vector (actual data)
         Matrix aveVec = new Matrix(data.size()[0],1); //Initialize "data mean" vector; populated entirely by mean of actual data
@@ -129,7 +129,7 @@ public class Regression {
      * @param orderStr String of model order
      * @return boolean of integer identity
      */
-    public static boolean isInt(String orderStr) {
+    private static boolean isInt(String orderStr) {
 
         int number;
         try {
@@ -139,7 +139,7 @@ public class Regression {
             return false; // False if unsuccessful
         }
     }
-    public static void printResults(List<Object> input) {
+    private static void printResults(List<Object> input) {
         String redColor = "\u001B[31m";
         String resetColor = "\u001B[0m";
         String TOP_BORDER = STR."\{redColor}╔═══RESULTS═══╗\{resetColor}";
@@ -169,7 +169,7 @@ public class Regression {
 
         System.out.println(BOTTOM_BORDER);
     }
-    public static String autoSpacer(String start, double input, int width, int round) {
+    private static String autoSpacer(String start, double input, int width, int round) {
         //Initialization
         double inputRounded = Math.floor(input*(Math.pow(10,round)))/(Math.pow(10,round));
         String redColor = "\u001B[31m";
