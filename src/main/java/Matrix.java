@@ -9,17 +9,17 @@ import static java.lang.StringTemplate.STR;
 
 public class Matrix {
 
-    private final int[] dim; // Array of matrix [m,n] dimensions.
-    private final double[][] matrix; // double[][] array containing matrix entries.
-    private final int m; // m dimension of matrix
-    private final int n; // n dimension of matrix.
-    private final boolean square; // Boolean of whether m and n dimensions are equal.
-    private final String type; // Classification of matrix based on dimensionality.
+    private final int[] DIM; // Array of matrix [M,N] dimensions.
+    private final double[][] MATRIX; // double[][] array containing matrix entries.
+    private final int M; // M dimension of matrix
+    private final int N; // N dimension of matrix.
+    private final boolean SQUARE; // Boolean of whether M and N dimensions are equal.
+    private final String TYPE; // Classification of matrix based on dimensionality.
     private boolean invertible; // Boolean of whether matrix is invertible. Possibly redundant.
-    private double det; // Determinant of square matrix.
+    private double det; // Determinant of SQUARE matrix.
 
     /**
-     * Constructs null matrix object from m and m dimensions.
+     * Constructs null matrix object from M and M dimensions.
      * @param m number of rows
      * @param n number of columns
      * @throws ExceptionInInitializerError when initializing 0 space matrix or 1x1 scalar
@@ -31,18 +31,18 @@ public class Matrix {
         } else if ((m == 1) && (n == 1)) { // Deny matrix construction for scalar quantities
             throw new ExceptionInInitializerError("One by one matrix is a scalar quantity.");
         }
-        this.m = m; // m dimension of matrix
-        this.n = n; // n dimension of matrix
-        matrix = new double[m][n]; // null double[][] array of matrix
-        dim = new int[]{m,n}; // integer array of matrix dimensions
-        square = (m == n); // Is the matrix square?
-        if (square) {
-            det = determinant(matrix); // Get determinant from function if square
+        this.M = m; // M dimension of matrix
+        this.N = n; // N dimension of matrix
+        MATRIX = new double[m][n]; // null double[][] array of matrix
+        DIM = new int[]{m,n}; // integer array of matrix dimensions
+        SQUARE = (m == n); // Is the matrix SQUARE?
+        if (SQUARE) {
+            det = determinant(MATRIX); // Get determinant from function if SQUARE
         } else {
-            det = 0.0; // Set determinant to 0 if not square
+            det = 0.0; // Set determinant to 0 if not SQUARE
         }
         invertible = (det != 0); // Invertible property of the matrix
-        type = type(); // Distinguished between several possible types of arrays; see function
+        TYPE = type(); // Distinguished between several possible types of arrays; see function
     }
 
     /**
@@ -51,18 +51,18 @@ public class Matrix {
      */
     public Matrix(double[][] matrix) {
 
-        this.matrix = matrix; // Initialize matrix array directly from parameter input
-        m = matrix.length; // Get m dimension from y length of matrix
-        n = matrix[0].length; // Get n dimension from x length of matrix
-        dim = new int[]{m, n};
-        square = (m == n);
-        if (square) {
+        this.MATRIX = matrix; // Initialize matrix array directly from parameter input
+        M = matrix.length; // Get M dimension from y length of matrix
+        N = matrix[0].length; // Get N dimension from x length of matrix
+        DIM = new int[]{M, N};
+        SQUARE = (M == N);
+        if (SQUARE) {
             det = determinant(matrix);
         } else {
             det = 0;
         }
         invertible = (det != 0);
-        type = type();
+        TYPE = type();
     }
 
     /**
@@ -73,34 +73,34 @@ public class Matrix {
      */
     public Matrix(String data) throws NumberFormatException, FileNotFoundException {
 
-        matrix = MatReader.getData(data); // Call the matReader function to construct the matrix array
-        m = matrix.length;
-        n = matrix[0].length;
-        dim = new int[]{m,n};
-        square = (m == n);
-        if (square) {
-            det = determinant(matrix);
+        MATRIX = MatReader.getData(data); // Call the matReader function to construct the matrix array
+        M = MATRIX.length;
+        N = MATRIX[0].length;
+        DIM = new int[]{M, N};
+        SQUARE = (M == N);
+        if (SQUARE) {
+            det = determinant(MATRIX);
         } else {
             det = 0.0;
         }
         invertible = det != 0;
-        type = type();
+        TYPE = type();
     }
 
     /**
      * Arranges the matrix dimensions into an int[] array.
-     * @return int[] array of matrix [m,n] dimensions.
+     * @return int[] array of matrix [M,N] dimensions.
      */
     public int[] size() {
-        return dim;
+        return DIM;
     }
 
     /**
-     * Boolean of square nature of matrix
-     * @return true if square; false if not
+     * Boolean of SQUARE nature of matrix
+     * @return true if SQUARE; false if not
      */
     public boolean isSquare() {
-        return square;
+        return SQUARE;
     }
 
     /**
@@ -108,7 +108,7 @@ public class Matrix {
      * @return matrix double[][]
      */
     public double[][] getMatrix() {
-        return matrix;
+        return MATRIX;
     }
 
     /**
@@ -120,56 +120,56 @@ public class Matrix {
     }
 
     /**
-     * Fetches the array type, ie, data, vector, etc
-     * @return string of array type
+     * Fetches the array TYPE, ie, data, vector, etc
+     * @return string of array TYPE
      */
     public String getType() {
-        return type;
+        return TYPE;
     }
 
     /**
      * Fetches the double in the specified entry
-     * @param i m index of the entry
-     * @param j n index of the entry
+     * @param i M index of the entry
+     * @param j N index of the entry
      * @return double of (i,j)th entry
      */
     public double getEntry(int i, int j) {
-        return matrix[i][j];
+        return MATRIX[i][j];
     }
 
     /**
      * Sets the specified entry as a double
-     * @param i m index of the entry
-     * @param j n index of the entry
+     * @param i M index of the entry
+     * @param j N index of the entry
      * @param entry double to populate the entry
      */
     public void setEntry(int i, int j, double entry) {
-        matrix[i][j] = entry;
-        if (square) {
-            det = determinant(matrix); // Update determinant as entries change
+        MATRIX[i][j] = entry;
+        if (SQUARE) {
+            det = determinant(MATRIX); // Update determinant as entries change
             invertible = (det != 0); // Update invertible property as determinant changes
         }
     }
 
     /**
-     * Inverts square, non-singular matrices
+     * Inverts SQUARE, non-singular matrices
      * @param a matrix to invert
      * @return inverted matrix
      * @throws IllegalArgumentException when matrix is not invertible
      */
     public static Matrix inverse(Matrix a) throws IllegalArgumentException {
 
-        Matrix clone = new Matrix(a.m,a.n); // Clone the original matrix as the process converts the original to the identity matrix
-        for (int i = 0; i < a.m; i++) {
-            for (int j = 0; j < a.n; j++) {
-                clone.setEntry(i,j,a.matrix[i][j]);
+        Matrix clone = new Matrix(a.M,a.N); // Clone the original matrix as the process converts the original to the identity matrix
+        for (int i = 0; i < a.M; i++) {
+            for (int j = 0; j < a.N; j++) {
+                clone.setEntry(i,j,a.MATRIX[i][j]);
             }
         }
         if (!clone.invertible) {
-            throw new IllegalArgumentException("Matrix must be square with nonzero determinant to be invertible!");
+            throw new IllegalArgumentException("Matrix must be SQUARE with nonzero determinant to be invertible!");
         }
 
-        int n = clone.n;
+        int n = clone.N;
         double[][] aInv = new double[n][n]; //Initialize inverted matrix
         for (int i = 0; i < n; i++) { //Initialize the inverted matrix as the identity matrix, with 1s along the main diagonal and zeros elsewhere
             for (int j = 0; j < n; j++) {
@@ -184,25 +184,25 @@ public class Matrix {
         for (int i = 0; i < n; i++) { //Perform Gaussian elimination w/ partial pivoting
             int maxRow = i;
             for (int j = i + 1; j < n; j++) { //Find the pivot row by locating the largest absolute value in some column
-                if (Math.abs(clone.matrix[j][i]) > Math.abs(clone.matrix[maxRow][i])) {
+                if (Math.abs(clone.MATRIX[j][i]) > Math.abs(clone.MATRIX[maxRow][i])) {
                     maxRow = j;
                 }
             }
-            swapRows(clone.matrix, i, maxRow); //Swap current row with pivot row
+            swapRows(clone.MATRIX, i, maxRow); //Swap current row with pivot row
             swapRows(aInv, i, maxRow); //Swap current row with pivot row
-            double pivot = clone.matrix[i][i]; //Scale the row such that the diagonal element is 1
+            double pivot = clone.MATRIX[i][i]; //Scale the row such that the diagonal element is 1
             if (pivot == 0.0) { //Terminate the program if the matrix is singular
                 throw new IllegalArgumentException("Matrix is singular");
             }
             for (int j = 0; j < n; j++) {
-                clone.matrix[i][j] /= pivot; //Scale this row in the input matrix
+                clone.MATRIX[i][j] /= pivot; //Scale this row in the input matrix
                 aInv[i][j] /= pivot; //Update the inverted matrix
             }
             for (int k = 0; k < n; k++) { //Eliminate below the pivot element
                 if (k != i) {
-                    double factor = clone.matrix[k][i];
+                    double factor = clone.MATRIX[k][i];
                     for (int j = 0; j < n; j++) {
-                        clone.matrix[k][j] -= factor * clone.matrix[i][j]; //Eliminate in the input matrix
+                        clone.MATRIX[k][j] -= factor * clone.MATRIX[i][j]; //Eliminate in the input matrix
                         aInv[k][j] -= factor * aInv[i][j]; //Update the inverted matrix
                     }
                 }
@@ -239,14 +239,14 @@ public class Matrix {
     }
 
     /**
-     * Calculate the determinant of a square matrix
+     * Calculate the determinant of a SQUARE matrix
      * @param matrix matrix to find determinant
      * @return double of determinant
      */
-    public static double determinant(double[][] matrix) {
+    private static double determinant(double[][] matrix) {
         int size = matrix.length;
         if (size != matrix[0].length) {
-            throw new IllegalArgumentException("Matrix must be square"); // Non-square matrices do not have determinants
+            throw new IllegalArgumentException("Matrix must be SQUARE"); // Non-SQUARE matrices do not have determinants
         }
         if (size == 1) {
             return matrix[0][0]; // Determinant of a scalar quantity is the scalar quantity
@@ -315,7 +315,7 @@ public class Matrix {
                 for (int j = 0; j < colsB; j++) {
                     double entry = 0.0;
                     for (int n = 0; n < colsA; n++) {
-                        entry += a.getEntry(i,n) * b.getEntry(n,j); //Sum the product of matrix members based on dimension n (colsA, rowsB) for some i,j
+                        entry += a.getEntry(i,n) * b.getEntry(n,j); //Sum the product of matrix members based on dimension N (colsA, rowsB) for some i,j
                     }
                     c[i][j] = entry; //Assign the i,j entry of the c matrix
                 }
@@ -325,22 +325,22 @@ public class Matrix {
     }
 
     /**
-     * Determines matrix type
-     * @return matrix type
+     * Determines matrix TYPE
+     * @return matrix TYPE
      */
     private String type() {
 
-        String type; // Initialize the type String
-        if ((m > 2) && (n == 2)) {
+        String type; // Initialize the TYPE String
+        if ((M > 2) && (N == 2)) {
             type = "Data"; // Case if matrix formatted as regressible data
-        } else if ((m == 0) && (n > 1)) {
+        } else if ((M == 0) && (N > 1)) {
             type = "Row Vector"; // Case if matrix is 1xn
-        } else if ((m > 0) && (n == 0)) {
+        } else if ((M > 0) && (N == 0)) {
             type = "Column Vector"; // Case if matrix is mx1
-        } else if (m != n) {
+        } else if (M != N) {
             type = "System"; // Case if matrix dimensions are not identical
         } else {
-            type = "Square"; // Case if m and n are the same
+            type = "Square"; // Case if M and N are the same
         }
         return type;
     }
@@ -352,12 +352,12 @@ public class Matrix {
      */
     public double[][] getRow(int row) {
 
-        double[][] returnRow = new double[1][n];
+        double[][] returnRow = new double[1][N];
         try {
-            System.arraycopy(matrix[row], 0, returnRow[0], 0, n); // Copy this row to a new double[][] array
+            System.arraycopy(MATRIX[row], 0, returnRow[0], 0, N); // Copy this row to a new double[][] array
             return returnRow;
-        } catch (ArrayIndexOutOfBoundsException e) { // Throw exception if array index exceeds m dimension
-            throw new ArrayIndexOutOfBoundsException(STR."Row index out of bounds! Indices range from 1 to \{m}");
+        } catch (ArrayIndexOutOfBoundsException e) { // Throw exception if array index exceeds M dimension
+            throw new ArrayIndexOutOfBoundsException(STR."Row index out of bounds! Indices range from 1 to \{M}");
         }
     }
 
@@ -368,13 +368,13 @@ public class Matrix {
      */
     public double[][] getCol(int col) {
 
-        double[][] column = new double[m][1];
+        double[][] column = new double[M][1];
         try {
-            for (int i = 0; i < m; i++) {
-                column[i][0] = matrix[i][col - 1]; // Assemble the column vector of column entries
+            for (int i = 0; i < M; i++) {
+                column[i][0] = MATRIX[i][col - 1]; // Assemble the column vector of column entries
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.err.println(STR."Column \{col} out of range for matrix with \{n} columns."); // Throw exception if array index exceeds n dimension
+            System.err.println(STR."Column \{col} out of range for matrix with \{N} columns."); // Throw exception if array index exceeds N dimension
         }
         return column;
     }
@@ -394,10 +394,10 @@ public class Matrix {
         StringBuilder midBar = new StringBuilder(LT);
         StringBuilder fancyMat = new StringBuilder();
         StringBuilder topBar = new StringBuilder(TLC);
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i < M; i++) {
 
             String HORI = "═════════";
-            if (i < m - 1) {
+            if (i < M - 1) {
                 String DT = "╦";
                 topBar.append(HORI).append(DT);
                 String UT = "╩";
@@ -415,15 +415,15 @@ public class Matrix {
         }
         fancyMat.append(topBar);
         fancyMat.append("\n");
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i < M; i++) {
             StringBuilder thisRow = new StringBuilder();
-            for (int j = 0; j < n; j++) {
+            for (int j = 0; j < N; j++) {
                 double entry;
                 double zero = 0.0;
-                if (((matrix[i][j] < 1.0e-10) && (matrix[i][j] > 0)) || ((matrix[i][j] > -1.0e-10) && (matrix[i][j] < 0))) {
+                if (((MATRIX[i][j] < 1.0e-10) && (MATRIX[i][j] > 0)) || ((MATRIX[i][j] > -1.0e-10) && (MATRIX[i][j] < 0))) {
                     entry = zero;
                 } else {
-                    entry = matrix[i][j];
+                    entry = MATRIX[i][j];
                 }
                 if (entry < 0) {
                     thisRow.append(VERT).append(String.format("%2.1e ", entry));
@@ -433,7 +433,7 @@ public class Matrix {
             }
             thisRow.append(STR."\{VERT}\n");
             fancyMat.append(thisRow);
-            if (i < m - 1) {
+            if (i < M - 1) {
                 fancyMat.append(midBar);
             }
         }
@@ -455,10 +455,10 @@ public class Matrix {
         if (obj != null) { // Check that object is not null
             if (getClass() != obj.getClass()) { // Check if objects are of same class
                 Matrix other = (Matrix) obj; // Cast to matrix if false above
-                if ((this.m == other.m)) { // Check if arrays are of same dimensions
-                    for (int i = 0; i < this.m; i++) {
-                        for (int j = 0; j < this.n; j++) {
-                            if (this.matrix[m][n] != other.matrix[m][n]) { // Check if matrix entries are identical
+                if ((this.M == other.M)) { // Check if arrays are of same dimensions
+                    for (int i = 0; i < this.M; i++) {
+                        for (int j = 0; j < this.N; j++) {
+                            if (this.MATRIX[M][N] != other.MATRIX[M][N]) { // Check if matrix entries are identical
                                 return false;
                             }
                         }
@@ -476,9 +476,9 @@ public class Matrix {
     @Override
     public String toString() {
 
-        String[] matStr = new String[m];
-        for (int i = 0; i < m; i++) {
-            matStr[i] = Arrays.toString(matrix[i]); // Create 2D string of matrix array
+        String[] matStr = new String[M];
+        for (int i = 0; i < M; i++) {
+            matStr[i] = Arrays.toString(MATRIX[i]); // Create 2D string of matrix array
         }
         return Arrays.toString(matStr);
     }
