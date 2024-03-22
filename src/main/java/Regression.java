@@ -145,7 +145,6 @@ public class Regression {
         String TOP_BORDER = STR."\{redColor}╔═══RESULTS═══╗\{resetColor}";
         String MID_BORDER = STR."\{redColor}╠═════════════╣\{resetColor}";
         String BOTTOM_BORDER = STR."\{redColor}╚═════════════╝\{resetColor}";
-        String alphaStart;
         int borderLength = TOP_BORDER.length();
 
         Matrix a = (Matrix) input.getFirst(); // Fetch and cast the coefficient matrix object
@@ -153,15 +152,16 @@ public class Regression {
         double rsq = (double) input.get(2); // Fetch and cast the rsq double
 
         System.out.println(TOP_BORDER); //Forms the border top.
-        for (int i = 0; i < a.size()[0]; i++) {
-            alphaStart = STR."\{redColor}║\{resetColor} A\{i}: ";
-            System.out.println(autoSpacer(alphaStart,a.getEntry(i,0),borderLength,2));
+        for (int i = 0; i < a.size()[0]; i++) { // Prints alpha values.
+            if (a.getEntry(i,0) >= 0) {
+                System.out.printf(STR."\{redColor}║\{resetColor} A\{i}: %2.1e \{redColor}║\{resetColor}\n",a.getEntry(i,0));
+            } else System.out.printf(STR."\{redColor}║\{resetColor} A\{i}:%2.1e \{redColor}║\{resetColor}\n",a.getEntry(i,0));
         }
 
         System.out.println(MID_BORDER);
 
         System.out.println(STR."\{redColor}║\{resetColor}     PHI     \{redColor}║\{resetColor}");
-        System.out.printf(STR."\{redColor}║\{resetColor}  %.2e   \{redColor}║\{resetColor}\n", phi);
+        System.out.printf(STR."\{redColor}║\{resetColor}   %2.1e   \{redColor}║\{resetColor}\n", phi);
         System.out.println(MID_BORDER);
 
         System.out.println(STR."\{redColor}║\{resetColor}     RSQ     \{redColor}║\{resetColor}");
