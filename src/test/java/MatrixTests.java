@@ -227,7 +227,7 @@ public class MatrixTests {
         }
         catch (IllegalArgumentException illegalArgumentException) {
             //Assert
-            assertEquals("Matrix must be square with nonzero determinant to be invertible!", illegalArgumentException.getMessage());
+            assertEquals("Matrix must be SQUARE with nonzero determinant to be invertible!", illegalArgumentException.getMessage());
         }
     }
 
